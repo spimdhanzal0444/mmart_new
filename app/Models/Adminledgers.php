@@ -5,17 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rank extends Model
+class Adminledgers extends Model
 {
     use HasFactory;
 
-    protected $table = 'ranks';
+    protected $table = 'adminledgers';
 
     protected $fillable = [
-        'rank_name',
-        'member_a',
-        'member_b',
-        'member_c',
+        'customer_id',
+        'admin_id',
+        'date',
+        'particulation',
+        'reason',
+        'credit',
+        'debit',
         'created_at',
         'updated_at',
     ];

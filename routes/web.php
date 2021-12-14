@@ -7,7 +7,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Admin\FotterController;
 use App\Http\Controllers\admin\GeneralSettingController;
 use App\Http\Controllers\admin\HomeCOntactController;
-use App\Http\Controllers\admin\RankController;
+use App\Http\Controllers\admin\RankWebController;
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\admin\WorkProcessController;
 use Illuminate\Support\Facades\Route;
@@ -44,9 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/home-contact/update/{id}', [HomeCOntactController::class, 'update'])->name('admin.home.contact.update');
 
     // PricingController Routes
-    Route::get('/admin/home/rank', [RankController::class, 'index'])->name('admin.rank');
-    Route::get('/admin/home/rank/show', [RankController::class, 'show'])->name('admin.rank.show');
-    Route::put('/admin/home/rank/update/{id}', [RankController::class, 'update'])->name('admin.rank.update');
+    Route::get('/admin/home/rank', [RankWebController::class, 'index'])->name('admin.rank');
+    Route::get('/admin/home/rank/show', [RankWebController::class, 'show'])->name('admin.rank.show');
+    Route::put('/admin/home/rank/update/{id}', [RankWebController::class, 'update'])->name('admin.rank.update');
 
     //Footer Routes
     Route::get('/admin/footer', [FotterController::class, 'index'])->name('admin.footer');

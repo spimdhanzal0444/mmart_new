@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rank extends Model
+class UserRank extends Model
 {
     use HasFactory;
 
-    protected $table = 'ranks';
+    protected $table = 'user_ranks';
 
     protected $fillable = [
-        'rank_name',
-        'member_a',
-        'member_b',
-        'member_c',
+        'user_id',
+        'rank_id',
+        'credit',
+        'date',
+        'status',
         'created_at',
         'updated_at',
     ];
