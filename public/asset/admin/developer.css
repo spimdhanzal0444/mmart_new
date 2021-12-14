@@ -1,0 +1,243 @@
+/*dashboard menu*/
+:root{
+    --header-nav-bg: #111827;
+    --body-color:#111827;
+    --text-color:#ddd;
+    --hr: #3b82f6;
+}
+
+/*========================================================*/
+/*                    header aria start                   */
+/*========================================================*/
+
+/* manu */
+.manu-aria {
+    background-color: var(--header-nav-bg);
+}
+
+.manu-aria ul li a{
+    color:#ddd;
+}
+
+nav ul li {
+    position: relative;
+}
+
+.manu-aria ul li a:hover:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 1px;
+    background-color: var(--hr);
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+.manu-aria ul li a:hover::before {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 1px;
+    background-color: var(--hr);
+    position: absolute;
+    bottom: -4px;
+    left: 10px;
+}
+
+nav.navbar.navbar-expand-lg {
+    background: #111827;
+}
+
+ul.navbar-nav.ml-auto {
+    position: absolute;
+    right: 200px;
+}
+/*========================================================*/
+/*                    header aria ind                     */
+/*========================================================*/
+/* Profile container */
+.profile {
+    margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+    min-height: 460px;
+}
+
+.profile-userpic {
+    text-align: center;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 38%;
+    height: 38%;
+}
+
+.profile-sidebar {
+    border-radius: 10px;
+}
+.profile-content {
+    border-radius: 10px;
+}
+
+/* Dashboard card */
+h3.card-font-title {
+    font-size: 30px;
+}
+
+.card_bg{
+    background: -webkit-linear-gradient(to right, #fdc830, #f37335); /* Chrome 10-25, Safari 5.1-6 */
+    background-size: cover;
+}
+
+li.list-group-item a {
+    display: block;
+    background: transparent;
+}
+
+li.list-group-item a:hover{
+    text-decoration: none;
+}
+
+.profile-usermenu ul li.active a {
+    color: #6777ef!important;
+    border-left: 2px solid #5b9bd1;
+    margin-left: 2px !important;
+    background-color: transparent !important;
+}
+
+.theme-white .list-group-item.active {
+    color: #fff;
+    background-color: #f0f3ff;
+    border-color: #cbcfe0;
+}
+
+.profile-usermenu ul li.active a {
+    color: #fff!important;
+    border-left: 1px solid #5b9bd1;
+    margin-left: 2px !important;
+    background-color: transparent !important;
+    padding: 0 8px;
+}
+
+.profile-content {
+    background: #fff;
+}
+.card {
+    border-radius: 4px;
+    padding: 2px 0;
+    margin: 7px 0;
+}
+
+.profile-usertitle-name {
+    font-size: 24px;
+}
+
+h3.lead {
+    margin-top: 0 !important;
+    padding-left: 15px;
+}
+h3.card-font-title {
+    font-size: 30px;
+    color: #fff;
+}
+h2.font-18 {
+    color: #fff;
+}
