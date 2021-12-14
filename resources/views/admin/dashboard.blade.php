@@ -10,8 +10,25 @@
             width: 100%;
             position: relative;
         }
+        .success h3 {
+            position: absolute;
+            top: 9px;
+            right: 0;
+            z-index: 999;
+            background: #47af1ddb;
+            font-size: 18px;
+            font-weight: normal;
+            padding: 10px 30px;
+            color: #000;
+            border-radius: 4px;
+        }
     </style>
 
+    <div class="success">
+        @if (\Session::has('success'))
+            <h3 class="error_mess">{{__('Logged in success')}}</h3>
+        @endif
+    </div>
 <section class="section">
     <div class="row ">
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -630,5 +647,12 @@
         </div>
     </div>
 </section>
+
+<script>
+    // Logged in message
+    setTimeout(function (){
+        document.querySelector('.error_mess').style.display = 'none'
+    }, 2000)
+</script>
 
 @endsection

@@ -24,13 +24,5 @@ class AdminMiddileWare
         }else{
             return redirect()->to('admin');
         }
-
-//        return redirect(‘home’)->with(‘error’,"You don't have admin access.");
-//        if(Session::has('_key')){
-//            return $next($request);
-//        }else{
-//            return redirect()->to('admin');
-//        }
-//        return $next($request);
     }
 }

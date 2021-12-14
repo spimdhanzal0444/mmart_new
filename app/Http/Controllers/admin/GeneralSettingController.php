@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Creative;
 use App\Models\GeneraleSettings;
 use App\Models\HomeContact;
-use App\Models\Rank;
+use App\Models\RankWeb;
 use App\Models\WorkProcess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +42,7 @@ class GeneralSettingController extends Controller
     {
         $data = GeneraleSettings::orderBy('id', 'DESC')->first();
         $creative = Creative::orderBy('id', 'DESC')->first();
-        $pricing = Rank::orderBy('id')->first();
+        $pricing = RankWeb::orderBy('id')->first();
         $works = WorkProcess::orderBy('id')->first();
         $hm_contact = HomeContact::orderBy('id')->first();
         return view('admin.general.create',compact('data', 'creative', 'pricing', 'works', 'hm_contact'));

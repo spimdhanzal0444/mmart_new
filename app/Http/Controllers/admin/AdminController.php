@@ -26,17 +26,13 @@ class AdminController extends Controller
 
     public function login_post(Request $request)
     {
-
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
         $credentials = $request->only('email', 'password');
+        Validator::make($credentials, $this->rules);
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard')->withSuccess('Signed in');
+            return redirect()->intended('/dashboard')->with('success', 'Login Success');
         }
-        return redirect()->back();
+        return redirect()->back()->with('error', 'This email or password do not match');
     }
 
     public function logout(){
