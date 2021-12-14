@@ -4,13 +4,13 @@
 
 <!-- index.html  21 Nov 2019 03:44:50 GMT -->
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>@yield('title')</title>
+      <meta charset="UTF-8">
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+      <title>@yield('title')</title>
 
-    @include('admin.layout.css')
+        @include('admin.layout.css')
 
-  <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />
+      <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />
 
     <style>
         .main-content {

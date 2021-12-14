@@ -7,35 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     @includeIf('admin.layout.css')
-    <style>
-        .message, .error {
-            position: absolute;
-            top: 9px;
-            right: 27px;
-            min-width: 269px;
-            padding: 0 7px;
-        }
-        .message h3 {
-            font-size: 13px;
-            font-weight: normal;
-            color: #fff;
-            margin-bottom: 0;
-            padding: 13px 0;
-            text-align: center;
-            background: #ff0000b3;
-            border-radius: 4px;
-        }
-        .error h3{
-            font-size: 13px;
-            font-weight: normal;
-            color: #fff;
-            margin-bottom: 0;
-            padding: 13px 0;
-            text-align: center;
-            background: #ff0000b3;
-            border-radius: 4px;
-        }
-    </style>
 </head>
 <body>
 

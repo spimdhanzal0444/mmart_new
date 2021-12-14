@@ -10,18 +10,6 @@
             width: 100%;
             position: relative;
         }
-        .success h3 {
-            position: absolute;
-            top: 9px;
-            right: 0;
-            z-index: 999;
-            background: #47af1ddb;
-            font-size: 18px;
-            font-weight: normal;
-            padding: 10px 30px;
-            color: #000;
-            border-radius: 4px;
-        }
     </style>
 
     <div class="success">

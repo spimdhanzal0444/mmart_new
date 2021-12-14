@@ -1,4 +1,32 @@
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3VzdG9tLmNzcyIsInNvdXJjZXMiOlsiY3VzdG9tLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9 */
+/* Login message */
+.error {
+    position: absolute;
+    top: 9px;
+    right: 27px;
+    min-width: 269px;
+    padding: 0 7px;
+}
+.error h3{
+    font-size: 13px;
+    font-weight: normal;
+    color: #fff;
+    margin-bottom: 0;
+    padding: 13px 0;
+    text-align: center;
+    background: #ff0000b3;
+    border-radius: 4px;
+}
 
-/*# sourceMappingURL=custom.css.map */
+.success h3 {
+    position: absolute;
+    top: 9px;
+    right: 0;
+    z-index: 999;
+    background: #47af1ddb;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 10px 30px;
+    color: #000;
+    border-radius: 4px;
+}
