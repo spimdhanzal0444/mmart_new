@@ -177,7 +177,9 @@
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">
-                  {{Auth::user()->email}}
+                  @if(Auth::check())
+                    {{Auth::user()->email}}
+                  @endif
               </div>
               <a href="profile.html" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile

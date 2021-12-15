@@ -15,12 +15,17 @@
                 <div class="modal-header">
                     <p class="lead">Package Contents</p>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <!-- Error -->
+                    <div>
+                        <ul id="responseErrors" class="d-none"></ul>
+                    </div>
                 </div>
                 <div class="modal-body">
 
-                    <form id="formdata" enctype="multipart/form-data">
-                        @csrf
+                    <form id="packageCreate" method="POST" enctype="multipart/form-data">
                         <div class="row">
+                            <!---- First Column ----->
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Package Name</label>
@@ -104,7 +109,7 @@
 
                                 <div class="form-group">
                                     <label>Nineteen Generation Income</label>
-                                    <input type="text" class="form-control" name="g_income_nineteen	" id="g_income_nineteen">
+                                    <input type="text" class="form-control" name="g_income_nineteen" id="g_income_nineteen">
                                 </div>
 
                                 <div class="form-group">
@@ -211,11 +216,11 @@
 
                             </div>
                         </div>
+
+                        <!-- Controll Button -->
+                        <button type="submit" class="btn btn-primary" id="save">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="save">Save</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -232,9 +237,8 @@
                                 <h4>Multi Select</h4>
                             </div>
                             <div class="card-body">
-
+                                <!-- Modal Button -->
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Large Modal</button>
-
 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-2">
@@ -255,7 +259,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tbody">
-                                            @foreach($packages as $key=> $package)
+                                            @foreach($packages as $package)
                                                 <tr>
                                                     <td>{{$package->id}}</td>
                                                     <td>{{$package->package_name}}</td>
@@ -269,15 +273,19 @@
                                                     <td>{{$package->g_income_twenty}}</td>
                                                     <td>{{$package->status}}</td>
                                                     <th>
-                                                        <label class="selectgroup-item">
-                                                            <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                            <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-edit"></i></span>
-                                                        </label>
+                                                        <a href="">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
+                                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-edit"></i></span>
+                                                            </label>
+                                                        </a>
 
-                                                        <label class="selectgroup-item">
-                                                            <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                            <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-trash-alt"></i></span>
-                                                        </label>
+                                                        <button onclick="aa()">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
+                                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-trash-alt"></i></span>
+                                                            </label>
+                                                        </button>
                                                     </th>
                                                 </tr>
                                             @endforeach
@@ -294,110 +302,42 @@
 
     <script>
         $(document).ready(function(){
-            $('#save').click(function (event){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on("submit", "#packageCreate", function (event){
                 event.preventDefault();
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
+                let formData = new FormData($('#packageCreate')[0]);
                 let url = "/secured/package-store";
                 let req = "POST";
 
-                let package_name = $('#package_name').val();
-                let package_type = $('#package_type').val();
-                let amount = $('#amount').val();
-                let referrel_income = $('#referrel_income').val();
-                let bonus = $('#bonus').val();
-                let insurance = $('#insurance').val();
-                let increative_gift = $('#increative_gift').val();
-                let validity = $('#validity').val();
-                let must_ref = $('#must_ref').val();
-                let must_days = $('#must_days').val();
-                let wlimit = $('#wlimit').val();
-                let tlimit = $('#tlimit').val();
-                let wmin = $('#wmin').val();
-                let tmin = $('#tmin').val();
-                // let package_banner = $('#package_banner').val();
-                let g_income_first = $('#g_income_first').val();
-                let g_income_second = $('#g_income_second').val();
-                let g_income_third = $('#g_income_third').val();
-                let g_income_fourth = $('#g_income_fourth').val();
-                let g_income_fifth = $('#g_income_fifth').val();
-                let g_income_six = $('#g_income_six').val();
-                let g_income_seven = $('#g_income_seven').val();
-                let g_income_eight = $('#g_income_eight').val();
-                let g_income_nine = $('#g_income_nine').val();
-                let g_income_ten = $('#g_income_ten').val();
-                let g_income_eleven = $('#g_income_eleven').val();
-                let g_income_twelve = $('#g_income_twelve').val();
-                let g_income_thirteen = $('#g_income_thirteen').val();
-                let g_income_fourteen = $('#g_income_fourteen').val();
-                let g_income_fifteen = $('#g_income_fifteen').val();
-                let g_income_sixteen = $('#g_income_sixteen').val();
-                let g_income_seventeen = $('#g_income_seventeen').val();
-                let g_income_eighteen = $('#g_income_eighteen').val();
-                let g_income_nineteen = $('#g_income_nineteen').val();
-                let g_income_twenty = $('#g_income_twenty').val();
-                let status = $('#status').val();
-
-
-                // var _token   = $('meta[name="csrf-token"]').attr('content');
-
                 $.ajax({
-                    url: url,
                     type: req,
-                    data:{
-                        package_name:package_name,
-                        package_type:package_type,
-                        amount:amount,
-                        referrel_income:referrel_income,
-                        bonus:bonus,
-                        insurance:insurance,
-                        increative_gift:increative_gift,
-                        validity:validity,
-                        must_ref:must_ref,
-                        must_days:must_days,
-                        wlimit:wlimit,
-                        tlimit:tlimit,
-                        wmin:wmin,
-                        tmin:tmin,
-                        // package_banner:package_banner,
-                        g_income_first:g_income_first,
-                        g_income_second:g_income_second,
-                        g_income_third:g_income_third,
-                        g_income_fourth:g_income_fourth,
-                        g_income_fifth:g_income_fifth,
-                        g_income_six:g_income_six,
-                        g_income_seven:g_income_seven,
-                        g_income_eight:g_income_eight,
-                        g_income_nine:g_income_nine,
-                        g_income_ten:g_income_ten,
-                        g_income_eleven:g_income_eleven,
-                        g_income_twelve:g_income_twelve,
-                        g_income_thirteen:g_income_thirteen,
-                        g_income_fourteen:g_income_fourteen,
-                        g_income_fifteen:g_income_fifteen,
-                        g_income_sixteen:g_income_sixteen,
-                        g_income_seventeen:g_income_seventeen,
-                        g_income_eighteen:g_income_eighteen,
-                        g_income_nineteen:g_income_nineteen,
-                        g_income_twenty:g_income_twenty,
-                        status:status,
-
-                        _token: "{{ csrf_token() }}"
-                    },
-                    dataType: 'json',
-                    cache: false,
-                    traditional: true,
-                    // contentType: false,
-                    // processData: false,
+                    url: url,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     success:function(response){
-                        console.log(response.package_name);
+                        if (response.status == 400){
 
-                        var tr = `
+                            $('#responseErrors').html("")
+                            $('#responseErrors').removeClass('d-none')
+                            $.each(response.errors, function (key, error){
+                                $('#responseErrors').append(`<li style="color: red">${error}</li>`);
+                            })
+                        }
+
+                        if (response.status == 200){
+                            $('#responseErrors').html("")
+                            $('#responseErrors').addClass('d-none')
+
+                            $('#packageCreate').find('input').val('')
+                            $('#myModal').modal('hide')
+
+                            var tr = `
                                     <tr>
                                         <td>${response.data.id}</td>
                                         <td>${response.data.package_name}</td>
@@ -409,6 +349,7 @@
                                         <td>${response.data.tlimit}</td>
                                         <td>${response.data.g_income_first}</td>
                                         <td>${response.data.g_income_twenty}</td>
+                                        <td>${response.data.status}</td>
                                         <th>
                                             <label class="selectgroup-item">
                                                 <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
@@ -422,14 +363,14 @@
                                         </th>
                                     </tr>
                                 `
-                        $('#tbody').append(tr)
+                            $('#tbody').append(tr)
+                        }
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
-            })
+            });
         });
     </script>
-
 @endsection

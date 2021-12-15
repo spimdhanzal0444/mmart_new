@@ -47,9 +47,10 @@
                                </div>
                            </div>
                        </div>
-                   </div>
-                   <div class="card-footer text-center">
-                       <input type="submit" value="Login" class="btn btn-primary">
+
+                       <div class="form-group text-center">
+                           <input type="submit" value="Login" class="btn btn-primary">
+                       </div>
                    </div>
                </form>
            </div>
