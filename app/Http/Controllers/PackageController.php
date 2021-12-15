@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Package;
+use App\Models\Package;
 use Schema;
 use Illuminate\Support\Str;
 use File;
@@ -15,12 +15,12 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        $package = Package::orderBy('id', 'asc')->get();
-        return view('backend.marketing.package.index', compact('package'));
+//        $package = Package::orderBy('id', 'asc')->get();
+        return view('admin.marketing.package.index');
     }
 
     /**
