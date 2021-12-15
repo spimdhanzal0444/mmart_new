@@ -13,5 +13,8 @@
 <script src="{{asset('asset/admin/js/page/index.js')}}"></script>
 <!-- Template JS File -->
 <script src="{{asset('asset/admin/js/scripts.js')}}"></script>
+<!-- JS Modal -->
+<script src="{{asset('asset/admin/js/prism.js')}}"></script>
 <!-- Custom JS File -->
 <script src="{{asset('asset/admin/js/custom.js')}}"></script>
+
