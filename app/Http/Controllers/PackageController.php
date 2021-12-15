@@ -19,8 +19,8 @@ class PackageController extends Controller
      */
     public function index()
     {
-//        $package = Package::orderBy('id', 'asc')->get();
-        return view('admin.marketing.package.index');
+        $packages = Package::orderBy('id', 'asc')->get();
+        return view('admin.marketing.package.index', compact('packages'));
     }
 
     /**
@@ -62,22 +62,39 @@ class PackageController extends Controller
         $package->package_name = $request->package_name;
         $package->package_type = $request->package_type;
         $package->amount = $request->amount;
-        $package->first_generation = $request->first_generation;
-        $package->second_generation = $request->second_generation;
-        $package->third_generation = $request->third_generation;
-        $package->fourth_generation = $request->fourth_generation;
-        $package->fifth_generation = $request->fifth_generation;
+        $package->referrel_income = $request->referrel_income;
         $package->bonus = $request->bonus;
         $package->insurance = $request->insurance;
         $package->increative_gift = $request->increative_gift;
         $package->validity = $request->validity;
-        $package->status = $request->status;
         $package->must_ref = $request->must_ref;
         $package->must_days = $request->must_days;
         $package->wlimit = $request->wlimit;
         $package->tlimit = $request->tlimit;
         $package->wmin = $request->wmin;
         $package->tmin = $request->tmin;
+        $package->package_banner = "test";
+        $package->g_income_first = $request->g_income_first;
+        $package->g_income_second = $request->g_income_second;
+        $package->g_income_third = $request->g_income_third;
+        $package->g_income_fourth = $request->g_income_fourth;
+        $package->g_income_fifth = $request->g_income_fifth;
+        $package->g_income_six = $request->g_income_six;
+        $package->g_income_seven = $request->g_income_seven;
+        $package->g_income_eight = $request->g_income_eight;
+        $package->g_income_nine = $request->g_income_nine;
+        $package->g_income_ten = $request->g_income_ten;
+        $package->g_income_eleven = $request->g_income_eleven;
+        $package->g_income_twelve = $request->g_income_twelve;
+        $package->g_income_thirteen = $request->g_income_thirteen;
+        $package->g_income_fourteen = $request->g_income_fourteen;
+        $package->g_income_fifteen = $request->g_income_fifteen;
+        $package->g_income_sixteen = $request->g_income_sixteen;
+        $package->g_income_seventeen = $request->g_income_seventeen;
+        $package->g_income_eighteen = $request->g_income_eighteen;
+        $package->g_income_nineteen = $request->g_income_nineteen;
+        $package->g_income_twenty = $request->g_income_twenty;
+        $package->status = $request->status;
 
         if ($request->hasFile('package_banner')) {
             $file = $request->file('package_banner');
@@ -87,6 +104,9 @@ class PackageController extends Controller
             $package->package_banner = $filename;
         }
         $package->save();
+
+        return response()->json(['data'=> $package, 'msg'=> 'Data insert success']);
+        exit();
 
         flash(translate('Package has been created successfully'))->success();
         return redirect()->route('package.index');
