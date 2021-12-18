@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CreativeController;
-use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Admin\FotterController;
 use App\Http\Controllers\admin\GeneralSettingController;
@@ -51,10 +51,6 @@ Route::middleware(['auth'])->group(function () {
     //Footer Routes
     Route::get('/admin/footer', [FotterController::class, 'index'])->name('admin.footer');
     Route::post('/admin/footer/post/{id}', [FotterController::class, 'update'])->name('admin.footer.update');
-
-
-    // ADVANCE ROUTE
-    Route::get('secured/customers', [CustomerController::class, 'index'])->name('members.list');
 
 });
 

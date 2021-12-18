@@ -15,6 +15,7 @@
 <script src="{{asset('asset/admin/js/scripts.js')}}"></script>
 <!-- JS Modal -->
 <script src="{{asset('asset/admin/js/prism.js')}}"></script>
+<script src="{{asset('asset/admin/js/notify.js')}}"></script>
 <!-- Custom JS File -->
 <script src="{{asset('asset/admin/js/custom.js')}}"></script>
 

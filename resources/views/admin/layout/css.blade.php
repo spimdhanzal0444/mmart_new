@@ -9,5 +9,6 @@
 <link rel="stylesheet" href="{{asset('asset/admin/css/components.css')}}">
 <!-- Modal css -->
 <link rel="stylesheet" href="{{asset('asset/admin/css/prism.css')}}">
+<link rel="stylesheet" href="{{asset('asset/admin/css/notify.css')}}">
 <!-- Custom style CSS -->
 <link rel="stylesheet" href="{{asset('asset/admin/css/custom.css')}}">

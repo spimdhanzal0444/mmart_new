@@ -25,6 +25,7 @@
 
                     <form id="packageCreate" method="POST" enctype="multipart/form-data">
                         <div class="row">
+                            <input type="hidden" name="hideID" value="">
                             <!---- First Column ----->
                             <div class="col-6">
                                 <div class="form-group">
@@ -218,7 +219,8 @@
                         </div>
 
                         <!-- Controll Button -->
-                        <button type="submit" class="btn btn-primary" id="save">Save</button>
+                        <button type="submit" class="btn btn-primary saveBtn" id="save">Save</button>
+                        <button type="submit" class="btn btn-primary updateBtn" id="update">Update</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </form>
                 </div>
@@ -238,7 +240,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Modal Button -->
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Large Modal</button>
+                                <button type="button" class="btn btn-info btn-lg modalBtn" data-toggle="modal" data-target="#myModal">Add Package</button>
 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-2">
@@ -259,36 +261,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tbody">
-                                            @foreach($packages as $package)
-                                                <tr>
-                                                    <td>{{$package->id}}</td>
-                                                    <td>{{$package->package_name}}</td>
-                                                    <td>{{$package->package_type}}</td>
-                                                    <td>{{$package->package_banner}}</td>
-                                                    <td>{{$package->amount}}</td>
-                                                    <td>{{$package->bonus}}</td>
-                                                    <td>{{$package->validity}}</td>
-                                                    <td>{{$package->tlimit}}</td>
-                                                    <td>{{$package->g_income_first}}</td>
-                                                    <td>{{$package->g_income_twenty}}</td>
-                                                    <td>{{$package->status}}</td>
-                                                    <th>
-                                                        <a href="">
-                                                            <label class="selectgroup-item">
-                                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-edit"></i></span>
-                                                            </label>
-                                                        </a>
 
-                                                        <button onclick="aa()">
-                                                            <label class="selectgroup-item">
-                                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-trash-alt"></i></span>
-                                                            </label>
-                                                        </button>
-                                                    </th>
-                                                </tr>
-                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -302,13 +275,19 @@
 
     <script>
         $(document).ready(function(){
+            // HIDE UPDATE BUTTON
+            $('.modalBtn').click(function (){
+                $('.updateBtn').css("display", "none")
+            })
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            $(document).on("submit", "#packageCreate", function (event){
+            // INSERT A RECORD
+            $(document).on("click", "#save", function (event){
                 event.preventDefault();
                 let formData = new FormData($('#packageCreate')[0]);
                 let url = "/secured/package-store";
@@ -326,7 +305,7 @@
                             $('#responseErrors').html("")
                             $('#responseErrors').removeClass('d-none')
                             $.each(response.errors, function (key, error){
-                                $('#responseErrors').append(`<li style="color: red">${error}</li>`);
+                                $.notify(`<li style="color: white">${error}</li>`, "error");
                             })
                         }
 
@@ -337,33 +316,8 @@
                             $('#packageCreate').find('input').val('')
                             $('#myModal').modal('hide')
 
-                            var tr = `
-                                    <tr>
-                                        <td>${response.data.id}</td>
-                                        <td>${response.data.package_name}</td>
-                                        <td>${response.data.package_type}</td>
-                                        <td>${response.data.package_banner}</td>
-                                        <td>${response.data.amount}</td>
-                                        <td>${response.data.bonus}</td>
-                                        <td>${response.data.validity}</td>
-                                        <td>${response.data.tlimit}</td>
-                                        <td>${response.data.g_income_first}</td>
-                                        <td>${response.data.g_income_twenty}</td>
-                                        <td>${response.data.status}</td>
-                                        <th>
-                                            <label class="selectgroup-item">
-                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-edit"></i></span>
-                                            </label>
-
-                                            <label class="selectgroup-item">
-                                                <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-trash-alt"></i></span>
-                                            </label>
-                                        </th>
-                                    </tr>
-                                `
-                            $('#tbody').append(tr)
+                            allRecord()
+                            $.notify(`<li style="color: white">${response.msg}</li>`, "success");
                         }
                     },
                     error: function(error) {
@@ -372,5 +326,159 @@
                 });
             });
         });
+
+
+        // VIEW ALL RECORD
+        function allRecord(){
+            $.ajax({
+                url: "/secured/package-all",
+                success: function(response){
+                    var html = ''
+
+                    $.each(response.data, function (key, row){
+                        html += '<tr>'
+                        html += '<td>'+ row.id +'</td>'
+                        html += '<td>'+ row.package_name +'</td>'
+                        html += '<td>'+ row.package_type +'</td>'
+                        html += '<td>'+ row.package_banner +'</td>'
+                        html += '<td>'+ row.amount +'</td>'
+                        html += '<td>'+ row.bonus +'</td>'
+                        html += '<td>'+ row.validity +'</td>'
+                        html += '<td>'+ row.tlimit +'</td>'
+                        html += '<td>'+ row.g_income_first +'</td>'
+                        html += '<td>'+ row.g_income_twenty +'</td>'
+                        html += '<td>'+ row.status +'</td>'
+                        html += `
+                            <th>
+                                <label class="selectgroup-item" data-toggle="modal" data-target="#myModal" onclick="editItem(${row.id})">
+                                    <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-edit"></i></span>
+                                </label>
+
+                                <label class="selectgroup-item" onclick="deleteItem(${row.id})">
+                                    <span class="selectgroup-button selectgroup-button-icon"><i class="far fa-trash-alt"></i></span>
+                                </label>
+                            </th>
+                        `
+                        html += '</tr>'
+                        $('#tbody').html(html)
+                    })
+                },
+                error: function(){
+                    $.notify(`<li style="color: white">Something is wrong</li>`, "error");
+                }
+            });
+        }
+        allRecord()
+
+        // DELETE A SPECIFIG DATA
+        function deleteItem(id){
+            $.ajax({
+                url : "/secured/package-delete/"+id,
+                type: "DELETE",
+                data : {"id": id},
+                success: function(response) {
+                    allRecord()
+                    $.notify(`<li style="color: white">${response.msg}</li>`, "success");
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+
+        // SHOWING VALUE INTO INPUT FILED
+        function editItem(id){
+            // HIDE SAVE BUTTON
+            $('.saveBtn').css("display", "none")
+
+            $.ajax({
+                url: "/secured/package-all",
+                success: function(response){
+                    idWiseData = response.data.find(item => item.id === id)
+
+                    $('input[name="hideID"]').val(idWiseData.id)
+
+                    $('input[name="package_name"]').val(idWiseData.package_name)
+                    $('input[name="package_type"]').val(idWiseData.package_type)
+                    $('input[name="amount"]').val(idWiseData.amount)
+                    $('input[name="referrel_income"]').val(idWiseData.referrel_income)
+                    $('input[name="bonus"]').val(idWiseData.bonus)
+                    $('input[name="insurance"]').val(idWiseData.insurance)
+                    $('input[name="increative_gift"]').val(idWiseData.increative_gift)
+                    $('input[name="validity"]').val(idWiseData.validity)
+                    $('input[name="must_ref"]').val(idWiseData.must_ref)
+                    $('input[name="must_days"]').val(idWiseData.must_days)
+                    $('input[name="wlimit"]').val(idWiseData.wlimit)
+                    $('input[name="tlimit"]').val(idWiseData.tlimit)
+                    $('input[name="wmin"]').val(idWiseData.wmin)
+                    $('input[name="tmin"]').val(idWiseData.tmin)
+                    $('input[name="g_income_first"]').val(idWiseData.g_income_first)
+                    $('input[name="g_income_second"]').val(idWiseData.g_income_second)
+                    $('input[name="g_income_third"]').val(idWiseData.g_income_third)
+                    $('input[name="g_income_fourth"]').val(idWiseData.g_income_fourth)
+                    $('input[name="g_income_fifth"]').val(idWiseData.g_income_fifth)
+                    $('input[name="g_income_six"]').val(idWiseData.g_income_six)
+                    $('input[name="g_income_seven"]').val(idWiseData.g_income_seven)
+                    $('input[name="g_income_eight"]').val(idWiseData.g_income_eight)
+                    $('input[name="g_income_nine"]').val(idWiseData.g_income_nine)
+                    $('input[name="g_income_ten"]').val(idWiseData.g_income_ten)
+                    $('input[name="g_income_eleven"]').val(idWiseData.g_income_eleven)
+                    $('input[name="g_income_twelve"]').val(idWiseData.g_income_twelve)
+                    $('input[name="g_income_thirteen"]').val(idWiseData.g_income_thirteen)
+                    $('input[name="g_income_fourteen"]').val(idWiseData.g_income_fourteen)
+                    $('input[name="g_income_fifteen"]').val(idWiseData.g_income_fifteen)
+                    $('input[name="g_income_sixteen"]').val(idWiseData.g_income_sixteen)
+                    $('input[name="g_income_seventeen"]').val(idWiseData.g_income_seventeen)
+                    $('input[name="g_income_eighteen"]').val(idWiseData.g_income_eighteen)
+                    $('input[name="g_income_nineteen"]').val(idWiseData.g_income_nineteen)
+                    $('input[name="g_income_twenty"]').val(idWiseData.g_income_twenty)
+                    $('input[name="status"]').val(idWiseData.status)
+                },
+                error: function(){
+                    $.notify(`<li style="color: white">Something is wrong</li>`, "error");
+                }
+            });
+        }
+
+
+        // UPDATE SPECIFIC DATA
+        $("body").on("click", "#update", function (event){
+            event.preventDefault();
+            let formData = new FormData($('#packageCreate')[0]);
+            let url = "/secured/package-update";
+            let req = "POST";
+
+            $.ajax({
+                type: req,
+                url: url,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success:function(response){
+                    if (response.status == 400){
+
+                        $('#responseErrors').html("")
+                        $('#responseErrors').removeClass('d-none')
+                        $.each(response.errors, function (key, error){
+                            $.notify(`<li style="color: white">${error}</li>`, "error");
+                        })
+                    }
+
+                    if (response.status == 200){
+                        $('#responseErrors').html("")
+                        $('#responseErrors').addClass('d-none')
+
+                        $('#packageCreate').find('input').val('')
+                        $('#myModal').modal('hide')
+                        $.notify(`<li style="color: white">${response.msg}</li>`, "success");
+
+                        allRecord()
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        })
     </script>
 @endsection
