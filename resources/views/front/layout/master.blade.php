@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{App\Helper::general()->sitetitle}}</title>
+    <title>{{general()->sitetitle}}</title>
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="robots" content="index, follow" >
-    <meta name="keywords" content="{{App\Helper::general()->metakeyword}}" >
-    <meta name="description" content="{{App\Helper::general()->metadescription}}" >
-    <meta name="author" content="{{App\Helper::general()->metaauthor}}">
+    <meta name="keywords" content="{{general()->metakeyword}}" >
+    <meta name="description" content="{{general()->metadescription}}" >
+    <meta name="author" content="{{general()->metaauthor}}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- FAVICONS -->
-    <link rel="shortcut icon" href="{{asset('asset/server/general/'.App\Helper::general()->favicon)}}">
-    <link rel="apple-touch-icon" href="{{asset('asset/server/general/'.App\Helper::general()->favicon)}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('asset/server/general/'.App\Helper::general()->favicon)}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('asset/server/general/'.App\Helper::general()->favicon)}}">
+    <link rel="shortcut icon" href="{{asset('asset/server/general/'.general()->favicon)}}">
+    <link rel="apple-touch-icon" href="{{asset('asset/server/general/'.general()->favicon)}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('asset/server/general/'.general()->favicon)}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('asset/server/general/'.general()->favicon)}}">
 
     <!-- CSS -->
     <!-- REVOLUTION STYLE SHEETS -->
@@ -124,7 +124,7 @@
                             <div class="logo-container-2">
                                 <div class="logo-2">
                                     <a href="{{route('/')}}" class="clearfix">
-                                        <img src="{{asset('asset/server/general/'.App\Helper::general()->logo)}}" class="logo-img logo-color-change" alt="Logo">
+                                        <img src="{{asset('asset/server/general/'.general()->logo)}}" class="logo-img logo-color-change" alt="Logo">
                                     </a>
                                 </div>
                             </div>
@@ -168,6 +168,7 @@
 
 
 
+
 @yield('content')
 
 
@@ -177,14 +178,14 @@
 
         <!-- Social Links -->
         <div class="footer-soc-a">
-            @foreach(App\Helper::footer()->social_icon as $key=>$icon)
-                <a href="{{App\Helper::footer()->social_link[$key]}}" title="Facebook" target="_blank"><i class="{{$icon}}"></i></a>
+            @foreach(footer()->social_icon as $key=>$icon)
+                <a href="{{footer()->social_link[$key]}}" title="Facebook" target="_blank"><i class="{{$icon}}"></i></a>
             @endforeach
         </div>
 
         <!-- Copyright -->
         <div class="footer-copy">
-            <a href="http://themeforest.net/user/abcgomel/portfolio" target="_blank">{{App\Helper::footer()->copyright}}</a>
+            <a href="http://themeforest.net/user/abcgomel/portfolio" target="_blank">{{footer()->copyright}}</a>
         </div>
 
     </div>

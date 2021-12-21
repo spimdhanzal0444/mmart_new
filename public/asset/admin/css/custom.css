@@ -37,3 +37,17 @@
     margin-top: 40px;
 }
 
+.permission_btn{
+    background: #0000ff2b !important;
+    color: blue !important;
+}
+
+
+div#methodarea {
+    background: #6c69d630;
+    padding: 9px 0;
+    margin: 0px 0;
+    margin-bottom: 16px;
+    border-radius: 3px;
+    color: #000;
+}

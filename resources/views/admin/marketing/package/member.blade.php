@@ -7,77 +7,45 @@
             margin-bottom: -20px !important;
         }
     </style>
-    <div class="secured_pages_container">
-        <section class="section">
-            <div class="section-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Multi Select</h4>
-                            </div>
-                            <div class="card-body">
 
-                                <div class="table-responsive">
-                                    <table class="table table-striped" id="table-2">
-                                        <thead>
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>{{__('Packages Wise Members')}}</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-2">
+                                    <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Package Name</th>
                                             <th>Action</th>
                                         </tr>
-                                        </thead>
-                                        <tbody id="tbody">
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        @foreach($packages as $key=> $package)
+                                            <tr>
+                                                <td>{{$package->id}}</td>
+                                                <td>{{$package->package_name}}</td>
+                                                <td>
+                                                    <label class="selectgroup-item" data-toggle="modal" data-target="#myModal" title="{{__('View Member')}}">
+                                                        <a href="{{route("view.member.package",encrypt($package->id))}}"><span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-eye"></i></span></a>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-
-    <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        });
-
-        // VIEW ALL RECORD
-        function allRecord(){
-            $.ajax({
-                url: "/secured/package-all",
-                success: function(response){
-                    var html = ''
-
-                    $.each(response.data, function (key, row){
-                        html += '<tr>'
-                        html += '<td>'+ row.id +'</td>'
-                        html += '<td>'+ row.package_name +'</td>'
-                        html += `
-                            <th>
-                                <label class="selectgroup-item" data-toggle="modal" data-target="#myModal">
-                                    <a href=""><span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-eye"></i></span></a>
-                                </label>
-                            </th>
-                        `
-                        html += '</tr>'
-
-                        $('#tbody').html(html)
-                    })
-                },
-                error: function(){
-                    $.notify(`<li style="color: white">Something is wrong</li>`, "error");
-                }
-            });
-        }
-        allRecord()
-
-    </script>
+        </div>
+    </section>
 @endsection

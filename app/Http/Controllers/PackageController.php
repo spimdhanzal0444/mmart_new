@@ -16,15 +16,9 @@ class PackageController extends Controller
 {
     protected $rules = [
         'package_name'      => 'required',
-        'package_type'      => 'required',
         'amount'            => 'required',
-        'referrel_income'   => 'required',
         'bonus'             => 'required',
-        'insurance'         => 'required',
-        'increative_gift'   => 'required',
         'validity'          => 'required',
-        'must_ref'          => 'required',
-        'must_days'         => 'required',
         'wlimit'            => 'required',
         'tlimit'            => 'required',
         'wmin'              => 'required',
@@ -77,8 +71,8 @@ class PackageController extends Controller
     public function packake_wise_member()
     {
 
-        $package = Package::orderBy('id', 'DESC')->get();
-        return view('admin.marketing.package.member', compact('package'));
+        $packages = Package::orderBy('id', 'DESC')->get();
+        return view('admin.marketing.package.member', compact('packages'));
     }
 
     public function packake_wise_member_list(Request $request, $id)
@@ -92,8 +86,8 @@ class PackageController extends Controller
         }
 
         $user = $user->paginate(15);
-        return view('backend.marketing.package.member_list', compact('user', 'sort_search', 'userCount'));
-        return view('admin.marketing.package.member_list');
+
+        return view('admin.marketing.package.member_list', compact('user', 'sort_search', 'userCount'));
     }
 
     /**
@@ -112,15 +106,10 @@ class PackageController extends Controller
         }else{
             $package = new Package();
             $package->package_name = $request->package_name;
-            $package->package_type = $request->package_type;
             $package->amount = $request->amount;
             $package->referrel_income = $request->referrel_income;
             $package->bonus = $request->bonus;
-            $package->insurance = $request->insurance;
-            $package->increative_gift = $request->increative_gift;
             $package->validity = $request->validity;
-            $package->must_ref = $request->must_ref;
-            $package->must_days = $request->must_days;
             $package->wlimit = $request->wlimit;
             $package->tlimit = $request->tlimit;
             $package->wmin = $request->wmin;
@@ -199,15 +188,10 @@ class PackageController extends Controller
             return response()->json(['status'=> 400, 'errors'=> $validate->errors()]);
         }else{
             $package->package_name = $request->package_name;
-            $package->package_type = $request->package_type;
             $package->amount = $request->amount;
             $package->referrel_income = $request->referrel_income;
             $package->bonus = $request->bonus;
-            $package->insurance = $request->insurance;
-            $package->increative_gift = $request->increative_gift;
             $package->validity = $request->validity;
-            $package->must_ref = $request->must_ref;
-            $package->must_days = $request->must_days;
             $package->wlimit = $request->wlimit;
             $package->tlimit = $request->tlimit;
             $package->wmin = $request->wmin;

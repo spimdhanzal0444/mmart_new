@@ -4,23 +4,29 @@
 
 <!-- index.html  21 Nov 2019 03:44:50 GMT -->
 <head>
-      <meta charset="UTF-8">
-      <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-      <title>@yield('title')</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>@yield('title')</title>
 
-        @include('admin.layout.css')
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{asset('asset/admin/css/app.min.css')}}">
 
-      <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />
+    <link rel="stylesheet" href="{{asset('asset/admin/bundles/datatables/datatables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{asset('asset/admin/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/admin/css/components.css')}}">
+    <!-- Modal css -->
+    <link rel="stylesheet" href="{{asset('asset/admin/css/prism.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/admin/css/notify.css')}}">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="{{asset('asset/admin/css/custom.css')}}">
+
+
+    <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />
 
     <style>
-        .main-content {
-            padding-left: 128px;
-            padding-right: 5px;
-            padding-top: 41px;
-            width: 100%;
-            position: relative;
-        }
 
         footer.main-footer {
             position: absolute;
@@ -32,7 +38,18 @@
         .dropdown-title {
             background: radial-gradient(#c58b8b, transparent);
         }
+        .custom-switch {
+            padding-left: 0rem !important;
+        }
 
+        tr,td,th{
+            font-size: 14px !important;
+        }
+        a.website {
+            display: inline-block;
+            margin-top: 11px;
+            margin-right: 14px;
+        }
     </style>
 </head>
 
@@ -62,6 +79,9 @@
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
+            <li>
+                <a class="website" target="_blank" href="{{route('/')}}">Website</a>
+            </li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
               class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
               <span class="badge headerBadge1">
@@ -208,20 +228,39 @@
 
         </aside>
       </div>
+
+
+
       <!-- Main Content -->
       <div class="main-content">
-
-
           @yield('content')
-
-
       </div>
+
+
+
     </div>
   </div>
 
-@include('admin.layout.js')
+<!-- General JS Scripts -->
+<script src="{{asset('asset/admin/js/app.min.js')}}"></script>
+<!-- JS Libraies -->
+    <script src="{{asset('asset/admin/bundles/datatables/datatables.min.js')}}"></script>
+
+    <script src="{{asset('asset/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+
+    <script src="{{asset('asset/admin/bundles/jquery-ui/jquery-ui.min.js')}}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{{asset('asset/admin/js/page/datatables.js')}}"></script>
+<!-- JS Libraies -->
+<script src="{{asset('asset/admin/bundles/apexcharts/apexcharts.min.js')}}"></script>
+<!-- Page Specific JS File -->
+<script src="{{asset('asset/admin/js/page/index.js')}}"></script>
+<!-- Template JS File -->
+<script src="{{asset('asset/admin/js/scripts.js')}}"></script>
+<!-- JS Modal -->
+<script src="{{asset('asset/admin/js/prism.js')}}"></script>
+<script src="{{asset('asset/admin/js/notify.js')}}"></script>
+<!-- Custom JS File -->
+<script src="{{asset('asset/admin/js/custom.js')}}"></script>
 </body>
-
-
-<!-- index.html  21 Nov 2019 03:47:04 GMT -->
 </html>

@@ -2,11 +2,15 @@
 <!-- General JS Scripts -->
 <script src="{{asset('asset/admin/js/app.min.js')}}"></script>
 <!-- JS Libraies -->
+@if(Route::is('package.index','members.list'))
 <script src="{{asset('asset/admin/bundles/datatables/datatables.min.js')}}"></script>
+
 <script src="{{asset('asset/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+
 <script src="{{asset('asset/admin/bundles/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Page Specific JS File -->
 <script src="{{asset('asset/admin/js/page/datatables.js')}}"></script>
+@endif
 <!-- JS Libraies -->
 <script src="{{asset('asset/admin/bundles/apexcharts/apexcharts.min.js')}}"></script>
 <!-- Page Specific JS File -->

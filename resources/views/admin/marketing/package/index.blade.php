@@ -1,12 +1,6 @@
 @extends('admin.layout.master')
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <style>
-        #formdata .form-control {
-            margin-bottom: -20px !important;
-        }
-    </style>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -39,27 +33,17 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Bonus</label>
+                                    <label>Daily Bonus</label>
                                     <input type="text" class="form-control" name="bonus" id="bonus">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Increative Gift</label>
-                                    <input type="text" class="form-control" name="increative_gift" id="increative_gift">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Must Ref</label>
-                                    <input type="text" class="form-control" name="must_ref" id="must_ref">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Wlimit</label>
+                                    <label>Withdraw Maximum Limit</label>
                                     <input type="text" class="form-control" name="wlimit" id="wlimit">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tlimit</label>
+                                    <label>Transfer Maximum Limit</label>
                                     <input type="text" class="form-control" name="tlimit" id="tlimit">
                                 </div>
 
@@ -123,18 +107,8 @@
                             <!---- Second Column ----->
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Package Type</label>
-                                    <input type="text" class="form-control" name="package_type" id="package_type">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Referrel Income</label>
+                                    <label>Sponsor Income</label>
                                     <input type="text" class="form-control" name="referrel_income" id="referrel_income">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Insurance</label>
-                                    <input type="text" class="form-control" name="insurance" id="insurance">
                                 </div>
 
                                 <div class="form-group">
@@ -143,17 +117,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Must Days</label>
-                                    <input type="text" class="form-control" name="must_days" id="must_days">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Wmin</label>
+                                    <label>Withdraw Minimum Limit</label>
                                     <input type="text" class="form-control" name="wmin" id="wmin">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tmin</label>
+                                    <label>Transfer Minimum Limit</label>
                                     <input type="text" class="form-control" name="tmin" id="tmin">
                                 </div>
 
@@ -229,49 +198,48 @@
     </div><!-- End modal -->
 
 
-    <div class="secured_pages_container">
-        <section class="section">
-            <div class="section-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Multi Select</h4>
-                            </div>
-                            <div class="card-body">
-                                <!-- Modal Button -->
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Packages</h4>
+                            <!-- Modal Button -->
+                            <div class="text-right" style="position: absolute; right: 22px">
                                 <button type="button" class="btn btn-info btn-lg modalBtn" data-toggle="modal" data-target="#myModal">Add Package</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
 
-                                <div class="table-responsive">
-                                    <table class="table table-striped" id="table-2">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Package Name</th>
-                                                <th>Type</th>
-                                                <th>package img</th>
-                                                <th>Amount</th>
-                                                <th>Bonus</th>
-                                                <th>Validity</th>
-                                                <th>Time Limit</th>
-                                                <th>first GI</th>
-                                                <th>Last GI</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody">
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-2">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Package Name</th>
+                                        <th>package img</th>
+                                        <th>Amount</th>
+                                        <th>Bonus</th>
+                                        <th>Validity</th>
+                                        <th>Time Limit</th>
+                                        <th>First GI</th>
+                                        <th>Last GI</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <!-- Coming data from ajax -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <script>
         $(document).ready(function(){
@@ -339,7 +307,6 @@
                         html += '<tr>'
                         html += '<td>'+ row.id +'</td>'
                         html += '<td>'+ row.package_name +'</td>'
-                        html += '<td>'+ row.package_type +'</td>'
                         html += '<td>'+ row.package_banner +'</td>'
                         html += '<td>'+ row.amount +'</td>'
                         html += '<td>'+ row.bonus +'</td>'
@@ -394,20 +361,15 @@
             $.ajax({
                 url: "/secured/package-all",
                 success: function(response){
-                    idWiseData = response.data.find(item => item.id === id)
+                   var idWiseData = response.data.find(item => item.id === id)
 
                     $('input[name="hideID"]').val(idWiseData.id)
 
                     $('input[name="package_name"]').val(idWiseData.package_name)
-                    $('input[name="package_type"]').val(idWiseData.package_type)
                     $('input[name="amount"]').val(idWiseData.amount)
                     $('input[name="referrel_income"]').val(idWiseData.referrel_income)
                     $('input[name="bonus"]').val(idWiseData.bonus)
-                    $('input[name="insurance"]').val(idWiseData.insurance)
-                    $('input[name="increative_gift"]').val(idWiseData.increative_gift)
                     $('input[name="validity"]').val(idWiseData.validity)
-                    $('input[name="must_ref"]').val(idWiseData.must_ref)
-                    $('input[name="must_days"]').val(idWiseData.must_days)
                     $('input[name="wlimit"]').val(idWiseData.wlimit)
                     $('input[name="tlimit"]').val(idWiseData.tlimit)
                     $('input[name="wmin"]').val(idWiseData.wmin)
