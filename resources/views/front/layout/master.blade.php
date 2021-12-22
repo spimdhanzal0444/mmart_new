@@ -112,8 +112,6 @@
         <![endif]-->
 
         <div class="header-transporent-bg-black">
-
-
             <!-- HEADER 1 BLACK MOBILE-NO-TRANSPARENT -->
             <header id="nav" class="header header-1 header-black-white affix-on-mobile">
                 <div class="header-wrapper">
@@ -143,7 +141,6 @@
                             <!-- MAIN MENU -->
                             <div id="main-menu">
                                 <div class="navbar navbar-default" role="navigation">
-
                                     <!-- MAIN MENU LIST -->
                                     <nav class="collapse collapsing navbar-collapse right-1024">
                                         @includeIf('front.layout.menu')

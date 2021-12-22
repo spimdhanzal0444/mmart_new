@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email' , 'agent_status', 'password', 'username', 'address', 'city', 'postal_code', 'phone', 'country', 'provider_id', 'email_verified_at', 'verification_code','referral_code','referral_id'
+        'name', 'email' , 'agent_status', 'password', 'username', 'address', 'city', 'postal_code', 'phone', 'country', 'provider_id', 'email_verified_at', 'verification_code','referral_code','referral_id', 'referred_by'
     ];
 
 
@@ -86,10 +86,10 @@ class User extends Authenticatable
 //        return $this->hasOne(Staff::class);
 //    }
 //
-//    public function orders()
-//    {
-//        return $this->hasMany(Order::class);
-//    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 //
 //    public function wallets()
 //    {

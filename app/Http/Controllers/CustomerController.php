@@ -559,6 +559,7 @@ class CustomerController extends Controller
         return response()->json(['withdraw'=> $withdraw, 'status'=> 200]);
     }
 
+    // Withdraw Done
      public function withdrawDone(Request $request)
         {
             if ($request->status == 1) {
@@ -609,6 +610,7 @@ class CustomerController extends Controller
 
 //                flash(translate('Withdraw Request Approved.'))->success();
 //                return redirect()->route('customers.withdraw');
+
                 // json response
                 return response()->json(['msg'=> 'Withdraw Request Approved.', 'status'=> 200]);
 
@@ -630,7 +632,7 @@ class CustomerController extends Controller
                 $admin->management = $newBal2;
                 $admin->update();
 
-//
+
 //                $Managementledger = new Managementledger;
 //                $Managementledger->customer_id = $withdraw->customer_id;
 //                $Managementledger->admin_id = Auth::user()->id;
@@ -641,7 +643,7 @@ class CustomerController extends Controller
 //                $Managementledger->date = date("Y-m-d");
 //                $Managementledger->reason = 'transfer_received';
 //                $Managementledger->save();
-//
+
 //                $user = User::findOrFail($withdraw->customer_id);
 //                $otpController = new OTPVerificationController;
 //                $otpController->withdraw_success($user);
