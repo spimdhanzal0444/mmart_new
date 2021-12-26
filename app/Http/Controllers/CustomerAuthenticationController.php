@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Customerledger;
+use App\Models\Reservedledger;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,7 @@ class CustomerAuthenticationController extends Controller
                 'password' => Hash::make($data['password'])
             ];
             $user = User::create(array_merge($request_data, $this->referredCode($data)));
+
             // create customer
             $customer = new Customer;
             $customer->user_id = $user->id;
@@ -78,6 +80,16 @@ class CustomerAuthenticationController extends Controller
             $customerLedger->debit          = 0.00;
             $customerLedger->initial_balance = $user->balance;
             $customerLedger->save();
+
+            $reservedLedger = new Reservedledger();
+            $reservedLedger->customer_id = $user->id;
+            $reservedLedger->date           = $user->created_at;
+            $reservedLedger->particulation  = "Initial Balance";
+            $reservedLedger->reason         = "initial_balance";
+            $reservedLedger->credit         = 0.00;
+            $reservedLedger->debit          = 0.00;
+            $reservedLedger->initial_balance = $user->balance;
+            $reservedLedger->save();
         }
 
         $update = User::find($user->id);
