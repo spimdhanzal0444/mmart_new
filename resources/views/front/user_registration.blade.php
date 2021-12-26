@@ -41,27 +41,6 @@
                 <!-- TAB PANELS -->
                 <div class="tab-content tab6-cont">
                     <div class="tab-pane fade in active" id="login-link">
-                        <!-- Select Login Field -->
-                        <div class="form-check">
-
-                            {{--                            <label class="form-check-label" for="Email" onclick="emailBtn()" style="padding-right: 5px">--}}
-{{--                                <input class="form-check-input" type="radio" name="exampleRadios" id="Email" value="option1" checked>--}}
-{{--                                Email--}}
-{{--                            </label>--}}
-
-
-{{--                            <label class="form-check-label" for="Username" onclick="usernameBtn()" style="padding-right: 5px">--}}
-{{--                                <input class="form-check-input" type="radio" name="exampleRadios" id="Username" value="option2">--}}
-{{--                                Username--}}
-{{--                            </label>--}}
-
-
-{{--                            <label class="form-check-label" for="phone" onclick="phoneBtn()">--}}
-{{--                                <input class="form-check-input" type="radio" name="exampleRadios" id="phone" value="option3">--}}
-{{--                                Password--}}
-{{--                            </label>--}}
-                        </div>
-
                         <!-- LOGIN FORM -->
                         <form id="login-form" method="POST" action="{{route('authenticate')}}">
                             @csrf
@@ -70,7 +49,7 @@
 
                                 <!-- email -->
                                 <div class="col-md-12 mb-15" id="emailField">
-                                    <input type="text" name="email" class="controled" placeholder="EMAIL" required>
+                                    <input type="text" name="loginBy" class="controled" placeholder="Username or Phone or Email" required>
                                 </div>
 
 {{--                                <!-- username -->--}}

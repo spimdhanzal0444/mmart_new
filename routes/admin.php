@@ -35,7 +35,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     // WorkProcess Routes
     Route::post('/home-contact/update/{id}', [HomeCOntactController::class, 'update'])->name('admin.home.contact.update');
 
-    // PricingController Routes
+    // Pricing Routes
     Route::get('/home/rank', [RankWebController::class, 'index'])->name('admin.rank');
     Route::get('/home/rank/show', [RankWebController::class, 'show'])->name('admin.rank.show');
     Route::put('/home/rank/update/{id}', [RankWebController::class, 'update'])->name('admin.rank.update');

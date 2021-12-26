@@ -8,6 +8,7 @@ use App\Models\Customerledger;
 use App\Models\Customerpayment;
 use App\Models\Customerwithdraw;
 use App\Models\Managementledger;
+use App\Models\Package;
 use App\Models\User;
 use Carbon\Carbon;
 use http\Env\Response;
@@ -15,13 +16,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
     // Customer Dashboard view
     public function profileIndex()
     {
-        return view('admin.customer.customer-dashboard');
+        return view('customer-front.customer-dashboard');
     }
 
     /**
@@ -56,16 +58,16 @@ class CustomerController extends Controller
             $customer->whereIn('user_id', $user_ids);
         })->orderBy('created_at', 'desc');
 
-//        $customer2 = Customer::orderBy('created_at', 'desc');
-//        if ($request->has('search')) {
-//            $sort_search = $request->search;
-//            $user_ids2 = User::where('user_type', 'customer')->where(function ($user) use ($sort_search) {
-//                $user->where('name', 'like', '%' . $sort_search . '%')->orWhere('email', 'like', '%' . $sort_search . '%')->orWhere('phone', 'like', '%' . $sort_search . '%')->orWhere('username', 'like', '%' . $sort_search . '%')->orWhere('referral_id', 'like', '%' . $sort_search . '%');
-//            })->pluck('id')->toArray();
-//            $customers = $customer2->where(function ($customer2) use ($user_ids2) {
-//                $customer2->whereIn('user_id', $user_ids2);
-//            });
-//        }
+        $customer2 = Customer::orderBy('created_at', 'desc');
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $user_ids2 = User::where('user_type', 'customer')->where(function ($user) use ($sort_search) {
+                $user->where('name', 'like', '%' . $sort_search . '%')->orWhere('email', 'like', '%' . $sort_search . '%')->orWhere('phone', 'like', '%' . $sort_search . '%')->orWhere('username', 'like', '%' . $sort_search . '%')->orWhere('referral_id', 'like', '%' . $sort_search . '%');
+            })->pluck('id')->toArray();
+            $customers = $customer2->where(function ($customer2) use ($user_ids2) {
+                $customer2->whereIn('user_id', $user_ids2);
+            });
+        }
         $customers = $customers->paginate(15);
 
         return view('admin.customer.customers.agent', compact('customers'));
@@ -90,7 +92,7 @@ class CustomerController extends Controller
     public function payment(Request $request)
     {
         $sort_search = null;
-        $customerpayment = Customerpayment::orderBy('created_at', 'desc');
+        $customerpayment = Customerpayment::orderBy('id', 'DESC');
         if ($request->has('search')) {
             $sort_search = $request->search;
             $user_ids = User::where('user_type', 'customer')->where(function ($user) use ($sort_search) {
@@ -100,8 +102,7 @@ class CustomerController extends Controller
                 $customerpayment->whereIn('customer_id', $user_ids);
             });
         }
-        $customerpayment = $customerpayment->paginate(15);
-
+        $customerpayment = $customerpayment->latest()->paginate(15);
         return view('admin.customer.customers.payment', compact('customerpayment', 'sort_search'));
     }
 
@@ -649,13 +650,9 @@ class CustomerController extends Controller
 //                $otpController->withdraw_success($user);
 
                 return response()->json(['msg'=> 'Withdraw Request Rejected.', 'status'=> 200]);
-//                flash(translate('Withdraw Request Rejected.'))->success();
-//                return redirect()->route('customers.withdraw');
             } else {
 
                 return response()->json(['msg'=> 'Withdraw Request Updated.', 'status'=> 200]);
-//                flash(translate('Withdraw Request Updated.'))->success();
-//                return redirect()->route('customers.withdraw');
             }
 
         }
@@ -684,6 +681,76 @@ class CustomerController extends Controller
         return response()->json(['status'=> 200, 'msg'=> 'Customer Updated Successfully.']);
     }
 
+    public function buynow(){
+        $package = Package::orderBy('id', 'DESC')->first();
+        return view('customer-front.customer-package-index', compact('package'));
+    }
+
+    // payment done
+    public function buynowDone(Request $request){
+        $customer= Customer::where('user_id', $request->id)->orderBy('id', 'DESC')->first();
+        $package= Package::where('package_name', $request->pack_name)->orderBy('id', 'DESC')->first();
+
+        $validate = Validator::make($request->all(), [
+            'type' => "required",
+            'number' => "required",
+            'trans_id' => "required",
+        ]);
+
+        if (!$validate->fails()){
+            try {
+                $payment = new Customerpayment();
+                $payment->customer_id = $customer->id;
+                $payment->date = date("Y-m-d", strtotime("now"));
+                $payment->type = $request->type;
+                $payment->number = $request->number;
+                $payment->trans_id = $request->trans_id;
+                $payment->package_id = $package->id;
+                $payment->amount = $package->amount;
+                $payment->save();
+                return response()->json(['msg'=> "Payment Successfull.", 'status'=> 200]);
+            }catch (\Exception $error){
+                return response()->json(['msg'=> $error->getMessage(), 'status'=> 400]);
+            }
+        }else{
+            return response()->json(['msg'=> $validate->errors(), 'status'=> 400]);
+        }
+    }
+
+    // payment with wallet done
+    public function buynowWalletDone(Request $request){
+        $customer= Customer::where('user_id', $request->id)->orderBy('id', 'DESC')->first();
+        $package= Package::where('package_name', $request->pack_name)->orderBy('id', 'DESC')->first();
+        $user = User::where('id', $request->id)->orderBy('id', 'DESC')->first();
+
+        if ($user->balance >= $package->amount){
+            $payment = new Customerpayment();
+            $payment->customer_id = $customer->id;
+            $payment->date = date("Y-m-d", strtotime("now"));
+            $payment->type = "wallet";
+            $payment->package_id = $package->id;
+            $payment->amount = $package->amount;
+            $payment->status = "1";
+            $payment->save();
+            return response()->json(['msg'=> "Your wallet payment successfull.", 'status'=> 200]);
+        }else{
+            return response()->json(['msg'=> "You do not have sufficient balance", 'status'=> 400]);
+        }
+    }
+
+    // customer panel wallet index
+    public function mywallet(){
+        return view('customer-front.customer-wallet-index');
+    }
+
+    /***
+    * response
+    */
+    public function myLedgerInfo(){
+        $customerLedgers = DB::table('customerledgers')->where('customer_id', Auth::user()->id)->orderBy('id','ASC')->get();
+
+        return view('customer-front.customer-ledger', compact('customerLedgers'));
+    }
 
     /**
      * Remove the specified resource from storage.

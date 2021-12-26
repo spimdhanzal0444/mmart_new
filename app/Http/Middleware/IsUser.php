@@ -22,15 +22,15 @@ class IsUser
                 if (Auth::check() && (Auth::user()->user_type == 'customer')) {
                     return $next($request);
                 } else {
-                    session(['link' => url()->current()]);
+//                    session(['link' => url()->current()]);
                     return redirect()->route('user.login');
                 }
             } else {
-                return redirect()->route('customer.logout');
+//                return redirect()->route('customer.logout');
+                return redirect()->back();
             }
         } else {
-            return redirect()->back();
+            return redirect()->route('user.registration');
         }
-
     }
 }

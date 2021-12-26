@@ -5,6 +5,8 @@ use App\Http\Controllers\AffiliateController;
 
 use App\Currency;
 use App\BusinessSetting;
+use App\Models\Customerledger;
+use App\Models\User;
 use App\Product;
 use App\Address;
 use App\SubSubCategory;
@@ -40,6 +42,9 @@ if (!function_exists('currency')) {
         return $currency.' '.$amount;
     }
 }
+
+
+
 
 // -------------------------------------------
 

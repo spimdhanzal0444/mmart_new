@@ -114,8 +114,11 @@
                                             <!--<td>{{ ($key+1) + ($customers->currentPage() - 1)*$customers->perPage() }}</td>-->
                                                 <td>{{$customer->user->id}}</td>
                                                 <td>{{$customer->user->created_at->format("j F, Y, g:i a")}}</td>
-                                                <td>@if($customer->user->banned == 1) <i class="fa fa-ban text-danger"
-                                                                                         aria-hidden="true"></i> @endif {{$customer->user->name}}
+                                                <td>
+                                                    @if($customer->user->banned == 1)
+                                                        <i class="fa fa-ban text-danger" aria-hidden="true"></i>
+                                                    @endif
+                                                        {{$customer->user->name}}
                                                 </td>
                                                 <td>{{$customer->user->username}}</td>
                                                 <td>{{$customer->user->referral_id}}</td>
@@ -188,8 +191,6 @@
             </div>
         </div>
     </section>
-@endsection
-
 
 <script type="text/javascript">
     function chengeAgStatus(id,cusId){
@@ -231,7 +232,6 @@
             }
         });
     }
-
 
     function updateCustomer(){
         var hideId = $('input[name="hideId"]').val()
@@ -304,68 +304,15 @@
         });
     }
 
+    function confirm_ban(url) {
+        $('#confirm-ban').modal('show', {backdrop: 'static'});
+        document.getElementById('confirmation').setAttribute('href', url);
+    }
+
+    function confirm_unban(url) {
+        $('#confirm-unban').modal('show', {backdrop: 'static'});
+        document.getElementById('confirmationunban').setAttribute('href', url);
+    }
+
 </script>
-
-
-
-
-
-
-@section('script')
-    <script type="text/javascript">
-
-        $(document).on("change", ".check-all", function () {
-            if (this.checked) {
-                // Iterate each checkbox
-                $(':checkbox').each(function () {
-                    this.checked = true;
-                });
-            } else {
-                $(':checkbox').each(function () {
-                    this.checked = false;
-                });
-            }
-
-        });
-
-        function sort_customers(el) {
-            $('#sort_customers').submit();
-        }
-
-        function confirm_ban(url) {
-            $('#confirm-ban').modal('show', {backdrop: 'static'});
-            document.getElementById('confirmation').setAttribute('href', url);
-        }
-
-        function confirm_unban(url) {
-            $('#confirm-unban').modal('show', {backdrop: 'static'});
-            document.getElementById('confirmationunban').setAttribute('href', url);
-        }
-
-        function bulk_delete() {
-            var data = new FormData($('#sort_customers')[0]);
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "{{route('bulk-customer-delete')}}",
-                type: 'POST',
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response == 1) {
-                        location.reload();
-                    }
-                }
-            });
-        }
-
-        function changePassword(id) {
-            $("#id").val(id);
-            $("#changePassword").modal('show');
-        }
-
-    </script>
 @endsection

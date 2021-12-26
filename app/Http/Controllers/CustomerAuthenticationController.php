@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Customerledger;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Auth\Events\Registered;
 
 
 class CustomerAuthenticationController extends Controller
@@ -64,10 +64,20 @@ class CustomerAuthenticationController extends Controller
                 'password' => Hash::make($data['password'])
             ];
             $user = User::create(array_merge($request_data, $this->referredCode($data)));
-
+            // create customer
             $customer = new Customer;
             $customer->user_id = $user->id;
             $customer->save();
+
+            $customerLedger = new Customerledger();
+            $customerLedger->customer_id = $user->id;
+            $customerLedger->date           = $user->created_at;
+            $customerLedger->particulation  = "Initial Balance";
+            $customerLedger->reason         = "initial_balance";
+            $customerLedger->credit         = 0.00;
+            $customerLedger->debit          = 0.00;
+            $customerLedger->initial_balance = $user->balance;
+            $customerLedger->save();
         }
 
         $update = User::find($user->id);
@@ -79,7 +89,12 @@ class CustomerAuthenticationController extends Controller
 
     public function registration()
     {
-        return view('front.user_registration');
+        $logged = Auth::check();
+        if ($logged) {
+            return redirect()->route('customer.dashboard');
+        } else {
+            return view('front.user_registration');
+        }
     }
 
     public function registers(Request $request)
@@ -101,7 +116,7 @@ class CustomerAuthenticationController extends Controller
 
             if ($user) {
                 $this->guard()->login($user);
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('customer.dashboard');
             }
         } else {
             return redirect()->back()->with('message', $validator->errors());
@@ -145,11 +160,16 @@ class CustomerAuthenticationController extends Controller
 
     public function userLogin()
     {
-        return view('front.user_registration');
+        $logged = Auth::check();
+        if ($logged) {
+            return redirect()->route('customer.dashboard');
+        } else {
+            return view('front.user_registration');
+        }
     }
 
     protected $rules = [
-        'email' => 'required',
+        'loginBy' => 'required',
         'password' => 'required',
     ];
 
@@ -157,14 +177,31 @@ class CustomerAuthenticationController extends Controller
     // login method
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('loginBy', 'password');
         Validator::make($credentials, $this->rules);
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('customer.dashboard');
-//            return redirect()->intended('customer/dashboard')->with('success', 'Login Success');
+        $user = DB::table('users')
+            ->where('username', $request->loginBy)
+            ->orWhere('phone', $request->loginBy)
+            ->orWhere('email', $request->loginBy)
+            ->orderBy('id', 'DESC')
+            ->first();
+
+//        if (Hash::check($request->password, $user->password) == true) {
+        if ($user && Hash::check($request->password, $user->password)) {
+            if ($user->user_type == 'customer'){
+                Auth::loginUsingId($user->id);
+                if (Auth::check()) {
+                    return redirect()->route('customer.dashboard')->with('success', 'Welcome back to your dashboard.');
+                } else {
+                    return redirect()->back()->with('error', 'This credentials does not match');
+                }
+            }else{
+                return redirect()->back()->with('error', 'This credentials does not match');
+            }
+        } else {
+            return redirect()->back()->with('error', 'This credentials does not match');
         }
-        return redirect()->back()->with('error', 'This email or password do not match');
     }
 
 

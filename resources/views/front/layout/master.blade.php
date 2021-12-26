@@ -73,6 +73,43 @@
         }
     </style>
 
+    <style>
+        .top-bar {
+            background: transparent;
+            position: absolute;
+            right: 43px;
+            top: -8px;
+            z-index:100000;
+        }
+
+        .top-bar ul {
+            text-align: center;
+        }
+        .top-bar ul li a{
+            color: #c9c4c9 !important;
+            text-align: right;
+        }
+        .top-bar ul li a:hover{
+            color: #ffffff;
+            background: transparent!important;
+        }
+        .top-nav {
+            float: none;
+            background: transparent;
+        }
+
+        header.affix .top-bar {
+            display: none;
+        }
+
+        .logo-img.logo-color-change {
+            -webkit-filter: brightness(0) invert(1);
+            webkit-filter: none;
+            filter: none;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -138,6 +175,9 @@
                     <!-- MAIN MENU CONTAINER -->
                     <div class="main-menu-container">
                         <div class="container-m-30 clearfix">
+                            <div class="top-bar">
+                                @include('front.layout.loginRegistrationMenu')
+                            </div>
                             <!-- MAIN MENU -->
                             <div id="main-menu">
                                 <div class="navbar navbar-default" role="navigation">

@@ -111,7 +111,7 @@
         <div id="about" class="page-section grey-light-bg">
             <div class="container fes1-cont">
                 <div class="row">
-                    <div class="col-md-4 fes1-img-cont wow fadeInUp mb-20">
+                    <div class="col-md-4 fes1-img-cont wow fadeInUp mb-20" style="margin-top: 40px">
                         <img src="{{asset('asset/server/creative/'.$creative->image)}}" alt="img" >
                     </div>
 
@@ -134,7 +134,11 @@
                                     <div class="fes1-box-icon">
                                         <div class="{{$creative->item1_icon}}"></div>
                                     </div>
-                                    <h3>{{$creative->item1_title}}</h3>
+
+                                    <a href="#">
+                                        <h3>{{$creative->item1_title}}</h3>
+                                    </a>
+
                                     <p>{{$creative->item1_description}}</p>
                                 </div>
                             </div>
@@ -144,7 +148,11 @@
                                     <div class="fes1-box-icon">
                                         <div class="{{$creative->item2_icon}}"></div>
                                     </div>
-                                    <h3>{{$creative->item2_title}}</h3>
+
+                                    <a href="#">
+                                        <h3>{{$creative->item2_title}}</h3>
+                                    </a>
+
                                     <p>{{$creative->item2_description}}</p>
                                 </div>
                             </div>
@@ -156,7 +164,11 @@
                                     <div class="fes1-box-icon">
                                         <div class="{{$creative->item3_icon}}"></div>
                                     </div>
-                                    <h3>{{$creative->item3_title}}</h3>
+
+                                    <a href="#">
+                                        <h3>{{$creative->item3_title}}</h3>
+                                    </a>
+
                                     <p>{{$creative->item3_description}}</p>
                                 </div>
                             </div>
@@ -166,10 +178,22 @@
                                     <div class="fes1-box-icon">
                                         <div class="{{$creative->item4_icon}}"></div>
                                     </div>
-                                    <h3>{{$creative->item4_title}}</h3>
+
+                                    <a href="#">
+                                        <h3>{{$creative->item4_title}}</h3>
+                                    </a>
+
                                     <p>{{$creative->item4_description}}</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="buyNowBtn text-center mt-5">
+                            <a href="{{route('package.buynow')}}" class="btn btn-danger text-light">BUY NOW</a>
                         </div>
                     </div>
                 </div>
@@ -206,7 +230,7 @@
                                     <span class="amount">{{$ranks->rank2_circle_text}}</span>
                                 </div>
                                 <ul class="pricing-content">
-                                @foreach($ranks->rank2_item_text as $row)
+                                    @foreach($ranks->rank2_item_text as $row)
                                         <div>
                                             <li><input type="checkbox" checked></li>
                                             <li>{{$row}}</li>
