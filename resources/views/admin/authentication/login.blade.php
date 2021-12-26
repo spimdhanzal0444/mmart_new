@@ -14,7 +14,7 @@
    <div class="row">
        <div class="col-6 offset-3  mt-5">
            <div class="card">
-               <form action="{{route('login.post')}}" method="POST" class="needs-validation was-validated" novalidate="">
+               <form action="{{route('admin.loggedin')}}" method="POST" class="needs-validation was-validated" novalidate="">
                    @csrf
                    <div class="card-header">
                        <div class="login_title">

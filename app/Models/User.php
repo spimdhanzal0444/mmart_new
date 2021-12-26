@@ -46,6 +46,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    const ADMIN_TYPE = 'admin';
+    const CUSTOMER_TYPE = 'customer';
+
+
+    public function isAdmin() {
+        return self::ADMIN_TYPE;
+    }
+
+    public function isCustomer() {
+        return self::CUSTOMER_TYPE;
+    }
+
 //    public function wishlists()
 //    {
 //        return $this->hasMany(Wishlist::class);

@@ -151,7 +151,7 @@
                                                     </a>
 
                                                     <!-- Customer dashboard -->
-                                                    <a href="{{route('admin.customer', encrypt($customer->id))}}" title="{{ __('Log in as this Customer') }}">
+                                                    <a href="{{route('customer.dashboard', encrypt($customer->id))}}" title="{{ __('Log in as this Customer') }}">
                                                         <label class="selectgroup-item">
                                                             <span class="selectgroup-button selectgroup-button-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                                                         </label>

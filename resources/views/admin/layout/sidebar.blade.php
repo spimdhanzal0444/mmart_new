@@ -1,5 +1,5 @@
 <ul class="sidebar-menu">
-    <li class="dropdown active"><a href="{{route('/admin')}}" class="nav-link"><i data-feather="monitor"></i><span>{{__('Dashboard')}}</span></a></li>
+    <li class="dropdown active"><a href="{{route('admin.dashboard')}}" class="nav-link"><i data-feather="monitor"></i><span>{{__('Dashboard')}}</span></a></li>
 
     <li class="menu-header">ADMIN PANEL</li>
     <li class="dropdown">
@@ -9,7 +9,6 @@
             <li class="dropdown"><a href="{{route('admin.general.index')}}" class="nav-link"><i data-feather="monitor"></i><span>Home Page</span></a></li>
             <li class="dropdown"><a href="{{route('admin.rank')}}" class="nav-link"><i data-feather="monitor"></i><span>Rank</span></a></li>
             <li class="dropdown"><a href="{{route('admin.footer')}}" class="nav-link"><i data-feather="monitor"></i><span>Footer</span></a></li>
-            <li class="dropdown"><a href="{{route('admin.customer')}}" class="nav-link"><i data-feather="monitor"></i><span>Customer Dashboard</span></a></li>
         </ul>
     </li>
 
@@ -42,9 +41,7 @@
         </ul>
     </li>
 
-    <li class="dropdown"><a href="{{route('admin.customer')}}" class="nav-link"><i data-feather="monitor"></i><span>Found Transfer</span></a></li>
-    <li class="dropdown"><a href="{{route('admin.customer')}}" class="nav-link"><i data-feather="monitor"></i><span>Notice</span></a></li>
-    <li class="dropdown"><a href="{{route('admin.customer')}}" class="nav-link"><i data-feather="monitor"></i><span>Helpline</span></a></li>
+
 
 </ul>
 

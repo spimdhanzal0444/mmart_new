@@ -13,42 +13,43 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/admin', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'adminAuthenticate'])->name('admin.loggedin');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/logout', [AdminController::class, 'logout'])->name('/logout');
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('/admin');
-    Route::get('/admin/customer/dashboard', [CustomerController::class, 'profileIndex'])->name('admin.customer');
+Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
     // Sowing Updated Form
-    Route::get('/admin/general/setting', [GeneralSettingController::class, 'index'])->name('admin.general.index');
-    Route::get('/admin/general/setting/show', [GeneralSettingController::class, 'show'])->name('admin.general.show');
+    Route::get('/general/setting', [GeneralSettingController::class, 'index'])->name('admin.general.index');
+    Route::get('/general/setting/show', [GeneralSettingController::class, 'show'])->name('admin.general.show');
 
     // General Setting Routes
-    Route::post('/admin/general/setting/update/{id}', [GeneralSettingController::class, 'update'])->name('admin.general.update');
+    Route::post('/general/setting/update/{id}', [GeneralSettingController::class, 'update'])->name('admin.general.update');
 
     // Creative Routes
-    Route::post('/admin/creative/update/{id}', [CreativeController::class, 'update'])->name('admin.creative.update');
+    Route::post('/creative/update/{id}', [CreativeController::class, 'update'])->name('admin.creative.update');
 
     // WorkProcess Routes
-    Route::post('/admin/work-process/update/{id}', [WorkProcessController::class, 'update'])->name('admin.work.update');
+    Route::post('/work-process/update/{id}', [WorkProcessController::class, 'update'])->name('admin.work.update');
 
     // WorkProcess Routes
-    Route::post('/admin/home-contact/update/{id}', [HomeCOntactController::class, 'update'])->name('admin.home.contact.update');
+    Route::post('/home-contact/update/{id}', [HomeCOntactController::class, 'update'])->name('admin.home.contact.update');
 
     // PricingController Routes
-    Route::get('/admin/home/rank', [RankWebController::class, 'index'])->name('admin.rank');
-    Route::get('/admin/home/rank/show', [RankWebController::class, 'show'])->name('admin.rank.show');
-    Route::put('/admin/home/rank/update/{id}', [RankWebController::class, 'update'])->name('admin.rank.update');
+    Route::get('/home/rank', [RankWebController::class, 'index'])->name('admin.rank');
+    Route::get('/home/rank/show', [RankWebController::class, 'show'])->name('admin.rank.show');
+    Route::put('/home/rank/update/{id}', [RankWebController::class, 'update'])->name('admin.rank.update');
 
     //Footer Routes
-    Route::get('/admin/footer', [FotterController::class, 'index'])->name('admin.footer');
-    Route::post('/admin/footer/post/{id}', [FotterController::class, 'update'])->name('admin.footer.update');
+    Route::get('/footer', [FotterController::class, 'index'])->name('admin.footer');
+    Route::post('/footer/post/{id}', [FotterController::class, 'update'])->name('admin.footer.update');
 });
 
 
 
-Route::group(['prefix' => '/secured', 'middleware' => ['auth']], function (){
+Route::group(['prefix' => '/secured', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
     Route::get('/package-list', [PackageController::class, 'index'])->name('package.index');
     Route::get('/package-all', [PackageController::class, 'allRecord']);
     Route::post('/package-store', [PackageController::class, 'store']);
