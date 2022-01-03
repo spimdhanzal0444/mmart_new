@@ -114,12 +114,12 @@
                 <div class="profile-usermenu">
                     <ul class="list-group">
                         <li class="list-group-item active"><a href="{{route('customer.dashboard')}}"><i class="ficon icon-basic-globe mx-2"></i> {{__('Dashboard')}}</a></li>
-                        <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>Profile</a></li>
                         <li class="list-group-item"><a href="{{route('mywallet.index')}}"><i class="icon icon-basic-globe  mx-2"></i>My Wallet</a></li>
                         <li class="list-group-item"><a href="{{route('customer.package.buynow')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Buy Package')}}</a></li>
                         <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>Notice</a></li>
                         <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>My Generation</a></li>
                         <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>Helpline</a></li>
+                        <li class="list-group-item"><a href="{{route('customer.profile')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Manage Profile')}}</a></li>
                         <li class="list-group-item"><a href="{{route('customer.logout')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Logout')}}</a></li>
                     </ul>
                 </div>

@@ -43,8 +43,6 @@ class CustomerAuthenticationController extends Controller
         if ($data['referral_code'] != null) {
             $rules += ['referral_code' => 'exists:users,referral_code'];
         }
-
-
         return Validator::make($data, $rules);
     }
 
@@ -126,6 +124,10 @@ class CustomerAuthenticationController extends Controller
         if (!$validator->fails()) {
             $user = $this->create($request->all());
 
+            $admin = User::find(1);
+            $admin->referral_code = $user->referral_id;
+            $admin->update();
+
             if ($user) {
                 $this->guard()->login($user);
                 return redirect()->route('customer.dashboard');
@@ -143,32 +145,15 @@ class CustomerAuthenticationController extends Controller
      */
     public function referredCode($data)
     {
-        // referred by column
-        $userRefId = User::all()->pluck('referral_code')->toArray();
-        if (in_array($data['referral_code'], $userRefId)) {
-
-            //insert referred code
-            $userRefCode = User::all()->pluck('referral_code');
-            $refCodeMaxNumber = max($userRefCode->toArray());
-
-            //insert referral id
-            $userRefId = User::all()->pluck('referral_id');
-            $refIdMaxNumber = max($userRefId->toArray());
-
+        if ($data['referral_code']) {
+            $adminRefCode = User::find(1);
+            $refCodeMaxNumber = $adminRefCode->referral_code;
             return [
-                'referral_id' => sprintf("%'.06d", $refIdMaxNumber + 1),      // Only Count Ref ID
-                'referred_by' => sprintf("%'.06d", $data['referral_code']),         // Only ref by
-                'referral_code' => sprintf("%'.06d", $refCodeMaxNumber + 1)     // Generate ref code
-            ];
-        } else {
-            return [
-                'referred_id' => null,
-                'referred_by' => null,
-                'referral_code' => null,
+                'referral_id' => sprintf("%'.06d", $refCodeMaxNumber + 1),      // Only Count Ref ID
+                'referral_code' => sprintf("%'.06d", $data['referral_code'])     // Generate ref code
             ];
         }
     }
-
 
     public function userLogin()
     {

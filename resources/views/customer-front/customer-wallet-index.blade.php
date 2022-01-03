@@ -16,7 +16,7 @@
                             <div class="card-body">
                                 <div class="main-balance">
                                     <p><span>&#36;</span></p>
-                                    <h2>৳ 1000</h2>
+                                    <h2>1000</h2>
                                     <p>Main Balance</p>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="reserved-balance">
                                 <p style="margin: 0"><span>&#36;</span></p>
-                                <h2>৳ 2000</h2>
+                                <h2>2000</h2>
                                 <p style="margin: 0;color: #FFFFFF">Reserved Balance</p>
                             </div>
                         </div>

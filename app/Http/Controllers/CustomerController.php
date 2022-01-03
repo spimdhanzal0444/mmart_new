@@ -11,7 +11,6 @@ use App\Models\Managementledger;
 use App\Models\Package;
 use App\Models\User;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
     // Customer Dashboard view
-    public function profileIndex()
+    public function customerDashboard()
     {
         return view('customer-front.customer-dashboard');
     }
@@ -82,6 +81,130 @@ class CustomerController extends Controller
 
         return 1;
     }
+
+    // Buy Package
+    public function buyPackage(Request $request)
+    {
+        if ($request->ajax()) {
+            $packageAmount = Package::where('id', $request->packageId)->orderBy('id', 'DESC')->first()->amount;
+            $user = DB::table('users')->where('id', Auth::user()->id)->orderBy('id', 'DESC')->first();
+
+            $setting = MlmSetting::first();
+
+            $userCryptoBalance = $user->crypto; // 10
+            $userTopperBalance = $user->topper; // 10
+
+            $cryptoPer = ($packageAmount / 100) * $setting->crypto;  // 16.1
+            $topperPer = ($packageAmount / 100) * $setting->topper;  // 6.9
+
+            if ($userCryptoBalance >= $cryptoPer) {
+                $cryptoMessage = "ok";
+            } else {
+                $cryptoMessage = "Your Crypto Balance is not sufficient to buy this package.";
+            }
+
+            if ($userTopperBalance >= $topperPer) {
+                $topperMessage = "ok";
+            } else {
+                $topperMessage = "Your Topper Balance is not sufficient to buy this package.";
+            }
+
+            return response()->json(
+                [
+                    'cryptoMessage' => $cryptoMessage,
+                    'topperMessage' => $topperMessage
+                ]
+            );
+        }
+    }
+
+    public function searchRef(Request $request)
+    {
+        $referredUserInfo = DB::table('users')->where('referral_id', $request->search)->orderBy('id', 'DESC')->first();
+        $parentRefUser = DB::table('users')->where('referral_id', $referredUserInfo->referral_code)->orderBy('id', 'DESC')->first();
+
+        if ($parentRefUser == null) {
+            $parentRefUser = "";
+        }
+        return response()->json(['data' => $referredUserInfo, 'parent_user' => $parentRefUser]);
+    }
+
+    // new user create
+    public function newUserCreate(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'username' => 'required|unique:users,username',
+            'password' => 'required',
+            'placement_id' => 'required'
+        ]);
+
+        $refUser = User::where('referral_id', '=', $request->placement_id)->orderBy('id', 'DESC');
+        $ref_User = $refUser->first();
+        $adminRefCode = User::find(1);
+
+        if (!$validate->fails()){
+            if ($request->has('team')){
+                $createuser = new User();
+                $createuser->name = $request->name;
+                $createuser->username  = $request->username;
+                $createuser->password = Hash::make($request->password);
+                $createuser->referral_code = Auth::user()->referral_id;
+                $createuser->referral_id = sprintf("%'.06d", $adminRefCode->referral_code + 1);
+                $createuser->save();
+
+                $adminRefCode->referral_code = $createuser->referral_id;
+                $adminRefCode->update();
+
+                if ($request->team == 'a') {
+                    if ($ref_User->team_a == null) {
+                        $refUser->update([
+                            'team_a' => $createuser->referral_id,
+                        ]);
+                    }
+                }
+
+                if ($request->team == 'b') {
+                    if ($ref_User->team_b == null) {
+                        $refUser->update([
+                            'team_b' => $createuser->referral_id,
+                        ]);
+                    }
+                }
+
+                if ($request->team == 'c') {
+                    if ($ref_User->team_c == null) {
+                        $refUser->update([
+                            'team_c' => $createuser->referral_id,
+                        ]);
+                    }
+                }
+
+                return redirect()->back()->with(['message'=> 'Successfully Account Created.']);
+            }
+        }else{
+            return redirect()->back()->with(['error'=> $validate->errors()]);
+        }
+    }
+
+    public function profile(){
+        $user = Auth::user();
+        return view('customer-front.customerProfile.profile-index', compact('user'));
+    }
+
+    public function showProfile(){
+        $user = Auth::user();
+        return view('customer-front.customerProfile.profile-edit', compact('user'));
+    }
+
+    public function updateProfile(Request $request){
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->update();
+        return redirect()->route('customer.profile');
+    }
+
 
     // get all customer
     public function allcustomer(){

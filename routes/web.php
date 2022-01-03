@@ -24,8 +24,8 @@ Route::get('/', [FrontController::class, 'index'])->name('/');
 
 Route::group(['middleware' => ['user']], function() {
     Route::get('/customer/logout', [CustomerAuthenticationController::class, 'customerLogout'])->name('customer.logout');
-    Route::get('/customer/dashboard', [CustomerController::class, 'profileIndex'])->name('customer.dashboard');
-    Route::get('/customer/buynow', [CustomerController::class, 'profileIndex'])->name('package.buynow');
+    Route::get('/customer/dashboard', [CustomerController::class, 'customerDashboard'])->name('customer.dashboard');
+    Route::get('/customer/buynow', [CustomerController::class, 'customerDashboard'])->name('package.buynow');
     Route::get('/package/buynow', [CustomerController::class, 'buynow'])->name('customer.package.buynow');  // front buy now button route
     Route::post('/package/buynow/done', [CustomerController::class, 'buynowDone'])->name('customer.payment.done');
     Route::post('/package/buynow/wallet/done', [CustomerController::class, 'buynowWalletDone'])->name('customer.payment.wallet.done');
@@ -33,6 +33,16 @@ Route::group(['middleware' => ['user']], function() {
 
     Route::get('/wallet', [CustomerController::class, 'mywallet'])->name('mywallet.index');
     Route::get('/customer/ledger', [CustomerController::class, 'myLedgerInfo'])->name('myledger');
+
+    Route::get('/buy-package',  [CustomerController::class, 'buyPackage'])->name('buy_package');
+    // search referral id
+    Route::get('search', [CustomerController::class, 'searchRef'])->name('search');
+    // NEW USER CREATE
+    Route::post('/newuser', [CustomerController::class, 'newUserCreate'])->name('newUser');
+
+    Route::get('profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::get('profile/show', [CustomerController::class, 'showProfile'])->name('show.profile');
+    Route::post('profile/update', [CustomerController::class, 'updateProfile'])->name('update.profile');
 
 });
 
