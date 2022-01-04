@@ -542,9 +542,9 @@ div.myWallet {
     background: linear-gradient(to right, #393f90 0%, #454cad 50%);
     border-radius: 4px;
 }
-.uploader input[type="file"] {
-    display: none;
-}
+/*.uploader input[type="file"] {*/
+/*    display: none;*/
+/*}*/
 .uploader div {
     margin: 0 0 0.5rem 0;
     color: #5f6982;

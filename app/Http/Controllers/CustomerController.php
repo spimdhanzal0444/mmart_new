@@ -178,7 +178,6 @@ class CustomerController extends Controller
                         ]);
                     }
                 }
-
                 return redirect()->back()->with(['message'=> 'Successfully Account Created.']);
             }
         }else{
@@ -197,11 +196,17 @@ class CustomerController extends Controller
     }
 
     public function updateProfile(Request $request){
-        $user = Auth::user();
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        $user->update();
+        $data = User::findOrFail(Auth::user()->id);
+        $input = $request->all();
+        if($request->file('avatar')){
+            dd($request->all());
+            $image = $request->file('avatar');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('asset/server/users'),$new_name);
+            $input['avatar'] = $new_name;
+        }
+        //$data->update($input);
+
         return redirect()->route('customer.profile');
     }
 
@@ -634,9 +639,6 @@ class CustomerController extends Controller
         $payment->status = '2';
         $payment->admin_note = $request->admin_note;
         $payment->update();
-
-//        return response()->json(['msg'=> 'rejected']);
-//        flash(__('Customer payment rejected Successfully'))->success();
         return back();
     }
 
@@ -695,7 +697,7 @@ class CustomerController extends Controller
                 $withdraw->status = $request->status;
                 $withdraw->approved_by = Auth::user()->id;
                 $withdraw->update();
-//
+
 //                $id = get_id_by_value('id', 'users', 'id', $withdraw->customer_id);
 //                $user = User::where('id', $id)->where('user_type', 'customer')->first();
 //                $newBal = $user->balance;
@@ -731,9 +733,6 @@ class CustomerController extends Controller
 //                $user = User::findOrFail($withdraw->customer_id);
 //                $otpController = new OTPVerificationController;
 //                $otpController->withdraw_success($user);
-
-//                flash(translate('Withdraw Request Approved.'))->success();
-//                return redirect()->route('customers.withdraw');
 
                 // json response
                 return response()->json(['msg'=> 'Withdraw Request Approved.', 'status'=> 200]);
