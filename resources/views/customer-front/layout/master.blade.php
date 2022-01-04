@@ -103,7 +103,11 @@
         <div class="col-sm-3">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
-                    <img src="{{asset('asset/admin/img/cards/default_user.png')}}" class="img-responsive" alt="{{Auth::user()->name}} profile image">
+                    @if (file_exists('asset/server/users/'.Auth::user()->avatar))
+                        <img src="{{asset('asset/server/users/'.Auth::user()->avatar)}}" alt="11">
+                    @else
+                        <img id="previewImg" src="{{asset('asset/admin/img/cards/default_user.png')}}" alt="Profile Picture">
+                    @endif
                 </div>
 
                 <div class="profile-usertitle">

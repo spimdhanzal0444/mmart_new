@@ -16,12 +16,12 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="col-md-12 col-sm-12">
-                                        <form action="{{route('update.profile')}}" method="post" id="file-upload-form" class="uploader">
+                                        <form action="{{route('update.profile')}}" method="post" id="file-upload-form" class="uploader" enctype="multipart/form-data">
                                             @csrf
                                             <div class="profile_image">
                                                 <div class="profile-userpic">
-                                                    @if (file_exists( 'public/asset/server/users/'.Auth::user()->avatar))
-                                                        <img src="{{asset( 'asset/server/users/'.Auth::user()->avatar)}}" alt="11">
+                                                    @if (file_exists('asset/server/users/'.Auth::user()->avatar))
+                                                        <img src="{{asset('asset/server/users/'.Auth::user()->avatar)}}" alt="11">
                                                     @else
                                                         <img id="previewImg" src="{{asset('asset/admin/img/cards/default_user.png')}}" alt="Profile Picture">
                                                     @endif
@@ -31,8 +31,8 @@
 
                                             <div class="updateUserForm">
                                                 <div class="custom-file">
-                                                    <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
-                                                    <input type="file" name="avatar" onchange="previewFile(this);" required>
+                                                    <label class="custom-file-label" for="avatar">Choose file</label>
+                                                    <input type="file" name="avatar" id="avatar" onchange="previewFile(this);" required>
                                                 </div>
 
                                                 <div class="form-group">

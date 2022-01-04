@@ -196,17 +196,16 @@ class CustomerController extends Controller
     }
 
     public function updateProfile(Request $request){
+
         $data = User::findOrFail(Auth::user()->id);
         $input = $request->all();
         if($request->file('avatar')){
-            dd($request->all());
             $image = $request->file('avatar');
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $new_name = $data->name.rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('asset/server/users'),$new_name);
             $input['avatar'] = $new_name;
         }
-        //$data->update($input);
-
+        $data->update($input);
         return redirect()->route('customer.profile');
     }
 

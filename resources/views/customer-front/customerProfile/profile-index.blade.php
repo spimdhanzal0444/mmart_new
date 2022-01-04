@@ -15,7 +15,11 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                     <div class="userProfileImage">
-                                        <img src="{{asset('asset/admin/img/cards/default_user.png')}}" alt="{{Auth::user()->name}}">
+                                        @if (file_exists('asset/server/users/'.Auth::user()->avatar))
+                                            <img src="{{asset('asset/server/users/'.Auth::user()->avatar)}}" alt="11">
+                                        @else
+                                            <img id="previewImg" src="{{asset('asset/admin/img/cards/default_user.png')}}" alt="Profile Picture">
+                                        @endif
                                     </div>
                                 </div>
 
