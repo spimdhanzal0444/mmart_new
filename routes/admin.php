@@ -51,10 +51,10 @@ Route::group(['prefix' => '/secured', 'middleware' => ['auth', 'admin']], functi
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/package-list', [PackageController::class, 'index'])->name('package.index');
-    Route::get('/package-all', [PackageController::class, 'allRecord']);
-    Route::post('/package-store', [PackageController::class, 'store']);
-    Route::post('/package-update', [PackageController::class, 'update']);
-    Route::delete('/package-delete/{id}', [PackageController::class, 'delete']);
+    Route::get('/package-all', [PackageController::class, 'allRecord'])->name('package.all');
+    Route::post('/package-store', [PackageController::class, 'store'])->name('package.store');
+    Route::post('/package-update', [PackageController::class, 'update'])->name('package.update');
+    Route::delete('/package-delete', [PackageController::class, 'delete'])->name('delete.package');
 
     Route::get('/package-wise-member', [PackageController::class, 'packake_wise_member'])->name('package.wise.member');
     Route::get('/package-member/list/{id}', [PackageController::class, 'packake_wise_member_list'])->name('view.member.package');
@@ -74,6 +74,7 @@ Route::group(['prefix' => '/secured', 'middleware' => ['auth', 'admin']], functi
     Route::get('payment/action/{id}', [CustomerController::class, 'payment_action'])->name('action.payment');
     Route::get('payment/action-rejected/{id}', [CustomerController::class, 'payment_action_rejected'])->name('action.payment.rejected');
     Route::get('payment/view/{id}', [CustomerController::class, 'payment_details_view']); // don't change url
+
     // Customer Withdraw
     Route::get('/withdraw', [CustomerController::class, 'withdrawFund'])->name('customers.withdraw');
     Route::get('/withdraw/details/{id}', [CustomerController::class, 'withdrawDetails'])->name('action.withdraw.details');
@@ -86,7 +87,6 @@ Route::group(['prefix' => '/secured', 'middleware' => ['auth', 'admin']], functi
 
 
 
-    Route::get('/all_orders/{id}/show', 'OrderController@all_orders_show')->name('all_orders.show');
 
 
 
@@ -96,8 +96,6 @@ Route::group(['prefix' => '/secured', 'middleware' => ['auth', 'admin']], functi
     Route::post('missed-bonus-adjustment', 'CustomerController@missedBonusAdjustment')->name('customers.missed.bonus');
     // next delete routes
     Route::post('/bulk-customer-delete', [CustomerController::class, 'bulk_customer_delete'])->name('bulk-customer-delete');
-//    Route::get('/customers/update/{id}', 'CustomerController@update')->name('customers.update');
-//    Route::get('/customers/login/{id}', 'CustomerController@login')->name('customers.login');
     Route::get('customers_ban/{customer}', 'CustomerController@ban')->name('customers.ban');
 
 

@@ -19,10 +19,9 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    // Customer Dashboard view
     public function customerDashboard()
     {
-        return view('customer-front.customer-dashboard');
+        return view('user.customer-dashboard');
     }
 
     /**
@@ -187,13 +186,23 @@ class CustomerController extends Controller
 
     public function profile(){
         $user = Auth::user();
-        return view('customer-front.customerProfile.profile-index', compact('user'));
+        return view('user.customerProfile.profile-index', compact('user'));
     }
 
     public function showProfile(){
         $user = Auth::user();
-        return view('customer-front.customerProfile.profile-edit', compact('user'));
+        return view('user.customerProfile.profile-edit', compact('user'));
     }
+
+//    public function profile(){
+//        $user = Auth::user();
+//        return view('customer-front.customerProfile.profile-index', compact('user'));
+//    }
+//
+//    public function showProfile(){
+//        $user = Auth::user();
+//        return view('customer-front.customerProfile.profile-edit', compact('user'));
+//    }
 
     public function updateProfile(Request $request){
 
@@ -804,7 +813,7 @@ class CustomerController extends Controller
 
     public function buynow(){
         $package = Package::orderBy('id', 'DESC')->first();
-        return view('customer-front.customer-package-index', compact('package'));
+        return view('user.package.customer-package-index', compact('package'));
     }
 
     // payment done
@@ -861,7 +870,7 @@ class CustomerController extends Controller
 
     // customer panel wallet index
     public function mywallet(){
-        return view('customer-front.customer-wallet-index');
+        return view('user.wallet.customer-wallet-index');
     }
 
     /***
@@ -869,8 +878,8 @@ class CustomerController extends Controller
     */
     public function myLedgerInfo(){
         $customerLedgers = DB::table('customerledgers')->where('customer_id', Auth::user()->id)->orderBy('id','ASC')->get();
-
-        return view('customer-front.customer-ledger', compact('customerLedgers'));
+dd(DB::table('customerledgers')->get());
+        return view('user.wallet.customer-ledger', compact('customerLedgers'));
     }
 
     /**

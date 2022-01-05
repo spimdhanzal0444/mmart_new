@@ -258,7 +258,7 @@
             $(document).on("click", "#save", function (event){
                 event.preventDefault();
                 let formData = new FormData($('#packageCreate')[0]);
-                let url = "/secured/package-store";
+                let url = "{{route('package.store')}}";
                 let req = "POST";
 
                 $.ajax({
@@ -299,10 +299,9 @@
         // VIEW ALL RECORD
         function allRecord(){
             $.ajax({
-                url: "/secured/package-all",
+                url: "{{route('package.all')}}",
                 success: function(response){
                     var html = ''
-
                     $.each(response.data, function (key, row){
                         html += '<tr>'
                         html += '<td>'+ row.id +'</td>'
@@ -340,7 +339,7 @@
         // DELETE A SPECIFIG DATA
         function deleteItem(id){
             $.ajax({
-                url : "/secured/package-delete/"+id,
+                url : "{{route('delete.package')}}",
                 type: "DELETE",
                 data : {"id": id},
                 success: function(response) {
@@ -359,7 +358,7 @@
             $('.saveBtn').css("display", "none")
 
             $.ajax({
-                url: "/secured/package-all",
+                url: "{{route('package.all')}}",
                 success: function(response){
                    var idWiseData = response.data.find(item => item.id === id)
 
@@ -407,7 +406,7 @@
         $("body").on("click", "#update", function (event){
             event.preventDefault();
             let formData = new FormData($('#packageCreate')[0]);
-            let url = "/secured/package-update";
+            let url = "{{route('package.update')}}";
             let req = "POST";
 
             $.ajax({

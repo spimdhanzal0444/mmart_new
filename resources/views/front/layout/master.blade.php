@@ -205,7 +205,6 @@
 
 
 
-
 @yield('content')
 
 
@@ -224,7 +223,6 @@
         <div class="footer-copy">
             <a href="http://themeforest.net/user/abcgomel/portfolio" target="_blank">{{footer()->copyright}}</a>
         </div>
-
     </div>
 </footer>
 
@@ -233,10 +231,8 @@
     <a href="#top" title="Back to Top"><span class="icon icon-arrows-up"></span></a>
 </p>
 
-</div><!-- End BG -->
-</div><!-- End wrap -->
-
-<!-- JS begin -->
+</div>
+</div>
 
 <!-- jQuery  -->
 <script src="{{asset('asset/front/js/jquery-1.11.2.min.js')}}"></script>
@@ -407,11 +403,8 @@
         }
 
         RsParticlesAddOn(revapi8);
-    });	/*ready*/
+    });
 </script>
-
-<!-- JS end -->
-
 </body>
 </html>
 

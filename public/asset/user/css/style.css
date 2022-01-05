@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul , ol {
+    list-style: none;
+}
+
+/*=============================================*/
+/*            HEADER ARIA START                */
+/*=============================================*/
+
+.header-aria ul li {
+    line-height: 20px;
+}
+
+.header-aria ul li {
+    font-size: 14px;
+}
+
+.header-aria .nav-manu {
+    width: 100%;
+    position: absolute;
+    top: 20px;
+}
+
+.header-aria .nav-manu a{
+    color: #191919;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+}
+
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.top-bar ul{
+    width: 200px;
+}
+
+.top-bar ul li{
+    display: inline-block;
+}
+.top-bar ul li a {
+    color: #191919;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+}
+
+.sticky{
+    position: fixed !important;
+    background-color: #ffffff;
+    top: 0px !important;
+    box-shadow: 0 0 10px 0px #0000005c;
+}
+
+.header-aria .nav-manu.sticky li a{
+    color:#191919;
+}
+
+.search-bar {
+    position: absolute;
+    top: 47px;
+    right: 71px;
+    color: #222;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.search-input{
+    display: none;
+    position: fixed;
+    top: 0;
+}
+.quersBar {
+    position: absolute;
+    right: 30px;
+    top: 29px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.sSticky{
+    position: fixed;
+    color:#000 !important;
+    top: 28px !important;
+}
+
+.search-input form input {
+    border: none;
+}
+
+.search-input form input::placeholder{
+    font-size: 20px;
+}
+
+.search-input form input:focus-visible{
+    outline: none;
+}
+
+/*=============================================*/
+/*            HEADER ARIA START                */
+/*=============================================*/
+
+/*=============================================*/
+/*            FOOTHER ARIA START               */
+/*=============================================*/
+.Social-icon ul li {
+    display: inline-block;
+}
+
+.Social-icon ul {
+    width: 80px;
+}
+
+.copy-write a {
+    color:#7e80a1;
+    text-decoration: none;
+    font-size: 11px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.Social-icon a {
+    color: #7e80a1;
+
+}
+
+.foother-aria{
+    padding-top: 100px;
+}
+
+/*=============================================*/
+/*            FOOTHER ARIA END                 */
+/*=============================================*/
+
+@media only screen and (max-width:991px){
+    .search-bar {
+        top: 41px;
+        right: 95px;
+    }
+}
+
+
+/* Developer css start */
+.main-document{
+    margin-top: 110px;
+    background: #eeeded;
+}
+
+body{
+    color: #1a202c;
+    text-align: left;
+}
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+.profile-userpic img {
+    width: 90px;
+    border-radius: 50%;
+    height: 90px;
+}
+
+li.list-group-item.active a {
+    color: #fff;
+}
+
+li.list-group-item a {
+    text-decoration: none;
+}
+
+.updateUserForm label{
+    display: block !important;
+    text-align: left;
+}
+
+.wallet_decition{
+    text-decoration: none;
+    color: #fff;
+}
+.wallet_decition h2, p{
+    color: #fff;
+    margin: 0;
+}
+
+.wallet_decition h2, p {
+    color: #000;
+    margin: 0;
+}
+#insertRefId label{
+    color: #fff;
+}
+div#wallet p {
+    color: #fff;
+    margin: 0;
+}
+.package-header {
+    border-radius: 6px;
+    text-align: center;
+}
+
+.package-header h2{
+    color: #fff;
+}
+
+#insertRefId label {
+    color: #000;
+}

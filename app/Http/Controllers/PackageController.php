@@ -239,9 +239,9 @@ class PackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $package = Package::where('id', $id)->first();
+        $package = Package::findOrFail($request->id);
 
         if (File::exists(public_path('public/uploads/package/'.$package->package_banner))) {
             File::delete(public_path('public/uploads/package/'.$package->package_banner));

@@ -32,11 +32,11 @@
             padding-top: 20px;
             padding-bottom: 10px;
         }
-    </style>
 
-    <style>
-
-
+        .menuProfileImg img {
+            width: 90px;
+            height: 90px;
+        }
     </style>
 </head>
 <body>
@@ -52,7 +52,7 @@
                     <div class="logo-container-2">
                         <div class="logo-2">
                             <a href="{{route('/')}}" class="clearfix" style="color: #000">
-                                <img src="http://127.0.0.1:8000/asset/front/images/logo.png" class="logo-img logo-color-change" alt="Logo">
+                                <img src="{{asset('asset/server/general/'.general()->logo)}}" alt="Logo" style="width: 50px">
                             </a>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
             <!-- SEARCH READ DOCUMENTATION -->
             <ul class="cd-header-buttons">
                 <li><a class="cd-search-trigger" href="#cd-search"><span></span></a></li>
-            </ul> <!-- cd-header-buttons -->
+            </ul>
             <div id="cd-search" class="cd-search">
                 <form class="form-search" id="searchForm" action="page-search-results.html" method="get">
                     <input type="text" value="" name="q" id="q" placeholder="Search...">
@@ -102,7 +102,7 @@
     <div class="row profile">
         <div class="col-sm-3">
             <div class="profile-sidebar">
-                <div class="profile-userpic">
+                <div class="profile-userpic menuProfileImg">
                     @if (file_exists('asset/server/users/'.Auth::user()->avatar))
                         <img src="{{asset('asset/server/users/'.Auth::user()->avatar)}}" alt="11">
                     @else

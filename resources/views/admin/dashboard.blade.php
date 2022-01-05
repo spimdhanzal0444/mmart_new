@@ -14,7 +14,8 @@
 
     <div class="success">
         @if (\Session::has('success'))
-            <h3 class="error_mess">{{__('Logged in success')}}</h3>
+            <h3 class="error_mess">{{__('Logged in success')}}
+            </h3>
         @endif
     </div>
 <section class="section">
