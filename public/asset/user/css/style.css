@@ -31,10 +31,10 @@ ul , ol {
     top: 20px;
 }
 
-.header-aria .nav-manu a{
+.header-aria .nav-manu a {
     color: #191919;
     font-family: 'Open Sans', sans-serif;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .top-bar {
@@ -136,10 +136,9 @@ ul , ol {
 
 }
 
-.foother-aria{
-    padding-top: 100px;
+.foother-aria {
+    padding-top: 20px;
 }
-
 /*=============================================*/
 /*            FOOTHER ARIA END                 */
 /*=============================================*/

@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 pb-3">
                                     <a href="{{route('show.profile')}}" class="btn btn-primary">Edit Your Profile</a>
                                 </div>
                             </div>

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{asset('asset/admin/css/custom.css')}}">
 
 
-    <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />
+{{--    <link rel='shortcut icon' type='image/x-icon' href='{{asset('asset/admin/img/favicon.ico')}}' />--}}
 
     <style>
 

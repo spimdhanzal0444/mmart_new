@@ -878,7 +878,7 @@ class CustomerController extends Controller
     */
     public function myLedgerInfo(){
         $customerLedgers = DB::table('customerledgers')->where('customer_id', Auth::user()->id)->orderBy('id','ASC')->get();
-dd(DB::table('customerledgers')->get());
+
         return view('user.wallet.customer-ledger', compact('customerLedgers'));
     }
 

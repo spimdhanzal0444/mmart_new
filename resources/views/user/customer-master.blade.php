@@ -76,21 +76,21 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <div class="profile-usertitle text-center">
-                                        <div class="profile-usertitle-name"><h4>{{Auth::user()->username}}</h4></div>
+                                    <div class="profile-usertitle pb-3 text-center">
+                                        <div class="profile-usertitle-name"><h4 class="m-0">{{Auth::user()->username}}</h4></div>
                                         <div class=""><p>{{Auth::user()->email}}</p></div>
                                     </div>
 
                                     <div class="profile-usermenu">
                                         <ul class="list-group">
                                             <li class="list-group-item active"><a href="{{route('customer.dashboard')}}"><i class="ficon icon-basic-globe mx-2"></i> {{__('Dashboard')}}</a></li>
-                                            <li class="list-group-item"><a href="{{route('mywallet.index')}}"><i class="icon icon-basic-globe  mx-2"></i>My Wallet</a></li>
-                                            <li class="list-group-item"><a href="{{route('customer.package.buynow')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Buy Package')}}</a></li>
+                                            <li class="list-group-item @if(in_array(Route::current()->getName(), array('mywallet.index', 'myledger'))) active @else  @endif"><a href="{{route('mywallet.index')}}"><i class="icon icon-basic-globe  mx-2"></i>My Wallet</a></li>
+                                            <li class="list-group-item @if(in_array(Route::current()->getName(), array('customer.package.buynow'))) active @else  @endif"><a href="{{route('customer.package.buynow')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Buy Package')}}</a></li>
                                             <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>Notice</a></li>
                                             <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>My Generation</a></li>
                                             <li class="list-group-item"><a href=""><i class="icon icon-basic-globe  mx-2"></i>Helpline</a></li>
-                                            <li class="list-group-item"><a href="{{route('customer.profile')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Manage Profile')}}</a></li>
-                                            <li class="list-group-item"><a href="{{route('customer.logout')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Logout')}}</a></li>
+                                            <li class="list-group-item @if(in_array(Route::current()->getName(), array('customer.profile', 'show.profile', 'update.profile'))) active @else  @endif"><a href="{{route('customer.profile')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Manage Profile')}}</a></li>
+                                            <li class="list-group-item @if(in_array(Route::current()->getName(), array('customer.logout'))) active @else  @endif"><a href="{{route('customer.logout')}}"><i class="icon icon-basic-globe  mx-2"></i>{{__('Logout')}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
